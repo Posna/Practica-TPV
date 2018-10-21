@@ -1,9 +1,10 @@
-#pragma once
+#ifndef GAME
+#define GAME
 #include <iostream>
 #include <string>
 #include "SDL.h"
 #include "SDL_image.h"
-#include "Texture.h"
+#include "Wall.h"
 
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
@@ -13,9 +14,12 @@ class Game {
 private:
 	SDL_Window * window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-
+	Wall* wallleft = nullptr;
+	Wall* wallright = nullptr;
+	Wall* wallarriba = nullptr;
 	bool exit = false;
-	Texture* textureDog = nullptr;
+	Texture* wallsides = nullptr;
+	Texture* walltop = nullptr;
 
 public:
 	Game();
@@ -25,3 +29,4 @@ public:
 	void update();
 	void handleEvents();
 };
+#endif
