@@ -1,0 +1,9 @@
+﻿  main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': redefinición de macro
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: vea la definición anterior de '_malloca'
+  Texture.cpp
+  Vector2D.cpp
+c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\proyectossdl\holasdl\vector2d.cpp(5): warning C4244: 'return': conversión de 'const double' a 'int'; posible pérdida de datos
+c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\proyectossdl\holasdl\vector2d.cpp(7): warning C4244: 'return': conversión de 'const double' a 'int'; posible pérdida de datos
+  Generando código...
+  HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\ProyectosSDL\bin\HolaSDLDebug.exe
