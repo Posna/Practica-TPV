@@ -21,7 +21,12 @@ BlockMap::BlockMap(Texture* t, string archivo) {
 			for (int j = 0; j < dimy; j++) {
 				Vector2D pos(((j*wB)+anchoW), ((i*hB)+anchoW));
 				fich >> color;
-				bloques[i][j] = new Block(pos, color, 1, 1, t, wB, hB);
+				if (color == 0) {
+					bloques[i][j] = nullptr;
+				}
+				else {
+					bloques[i][j] = new Block(pos, color, 1, 1, t, wB, hB);
+				}
 			}
 		}
 	}
@@ -30,7 +35,8 @@ BlockMap::BlockMap(Texture* t, string archivo) {
 void BlockMap::render() const {
 	for (int i = 0; i < dimx; i++) {
 		for (int j = 0; j < dimy; j++) {
-			bloques[i][j]->render();
+			if(bloques[i][j] != nullptr)
+				bloques[i][j]->render();
 		}
 	}
 }
