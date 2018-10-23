@@ -13,11 +13,11 @@ private:
 	uint h = 0;
 	Texture* t = nullptr;
 public:
+	Wall() {};
 	Wall(Vector2D pos, uint w, uint h, Texture* t):
 		pos(pos), h(h), w(w) {
 		this->t = t;
 	}
-	~Wall();
-	void render();
+	void render()const;
 };
 #endif

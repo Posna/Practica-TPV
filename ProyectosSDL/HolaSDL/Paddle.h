@@ -1,8 +1,7 @@
-#pragma once
-#include <iostream>
-#include <string>
 #ifndef PADDLE
 #define PADDLE
+#include <iostream>
+#include <string>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Texture.h"

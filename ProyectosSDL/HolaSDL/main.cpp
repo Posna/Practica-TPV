@@ -12,7 +12,7 @@ using uint = unsigned int;
 int main(int argc, char* argv[]){
 	Game* game = new Game();
 	game->render();
-	SDL_Delay(5000);
+	SDL_Delay(50000);
 	game->~Game();
 	return 0;
 }

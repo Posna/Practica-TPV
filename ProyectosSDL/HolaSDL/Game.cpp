@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <string>
 #include "Texture.h"
-#include "Wall.h"
 
 using namespace std;
 typedef unsigned int uint;
@@ -14,22 +13,27 @@ Game::Game() {
 
 	//textura muro lados
 	wallsides = new Texture(renderer, "..\\images\\side.png");
-	uint anchoWS = wallsides->getW();
-
+	
 	//textura muro arriba
 	walltop = new Texture(renderer, "..\\images\\topside.png");
-	uint anchoWT = walltop->getH();
+	//uint anchoWT = walltop->getH();
+
+	//textura bloques
+	blocks = new Texture(renderer, "..\\images\\bricks.png", 2, 3);
 
 	//muro izq
 	Vector2D poswallleft(0, 0);
-	wallleft = new Wall(poswallleft, anchoWS, WIN_HEIGHT, wallsides);
+	wallleft = new Wall(poswallleft, anchoW, WIN_HEIGHT, wallsides);
 
 	//muro drch
-	Vector2D poswallright((WIN_WIDTH - anchoWS), 0);
-	wallright = new Wall(poswallright, anchoWS, WIN_HEIGHT, wallsides);
+	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
+	wallright = new Wall(poswallright, anchoW, WIN_HEIGHT, wallsides);
 
 	//muro arriba
-	wallarriba = new Wall(poswallleft, WIN_WIDTH, anchoWT, walltop);
+	wallarriba = new Wall(poswallleft, WIN_WIDTH, anchoW, walltop);
+
+	//mapa de bloques
+	mapa = new BlockMap(blocks, "..\\mapas\\level01.ark");
 }
 
 void Game::render() const{
@@ -37,6 +41,7 @@ void Game::render() const{
 	wallleft->render();
 	wallright->render();
 	wallarriba->render();
+	mapa->render();
 	SDL_RenderPresent(renderer);
 }
 
