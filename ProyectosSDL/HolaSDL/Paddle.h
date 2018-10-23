@@ -12,17 +12,14 @@ private:
 	Vector2D pos;
 	int alt;
 	int anch;
-	Vector2D dir;
-	int x;
-	int y;
-	Vector2D vel;
+	Vector2D veldir;
 
 	Texture* p = nullptr;
 
 public:
 
-	Paddle(Vector2D pos, int alt, int anch, Vector2D dir, int x, int y, Vector2D vel, Texture* p) :
-		pos(pos), alt(alt), anch(anch), dir(dir), x(x), y(y), vel(vel) {}
+	Paddle(Vector2D pos, int alt, int anch,  Vector2D veldir, Texture* p) :
+		pos(pos), alt(alt), anch(anch), veldir(veldir), p(p){}
 	~Paddle();
 	void render();
 

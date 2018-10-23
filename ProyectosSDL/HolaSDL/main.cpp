@@ -13,6 +13,6 @@ int main(int argc, char* argv[]){
 	Game* game = new Game();
 	game->render();
 	SDL_Delay(50000);
-	game->~Game();
+	game->~Game(); //delete
 	return 0;
 }

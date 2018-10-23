@@ -10,6 +10,6 @@ void Block::render() const{
 		destRect.h = this->h;
 		destRect.x = this->pos.getx();
 		destRect.y = this->pos.gety();
-		textura->renderFrame(destRect, fila, columna);
+		textura->renderFrame(destRect, color%2, color%3);
 	}
 }

@@ -6,6 +6,7 @@ using namespace std;
 typedef unsigned int uint;
 
 Game::Game() {
+	Vector2D origen(0, 0);
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -22,18 +23,28 @@ Game::Game() {
 	blocks = new Texture(renderer, "..\\images\\bricks.png", 2, 3);
 
 	//muro izq
-	Vector2D poswallleft(0, 0);
-	wallleft = new Wall(poswallleft, anchoW, WIN_HEIGHT, wallsides);
+	wallleft = new Wall(origen, anchoW, WIN_HEIGHT, wallsides);
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
 	wallright = new Wall(poswallright, anchoW, WIN_HEIGHT, wallsides);
 
 	//muro arriba
-	wallarriba = new Wall(poswallleft, WIN_WIDTH, anchoW, walltop);
+	wallarriba = new Wall(origen, WIN_WIDTH, anchoW, walltop);
 
 	//mapa de bloques
 	mapa = new BlockMap(blocks, "..\\mapas\\level01.ark");
+
+	//Paddle
+	paddleRend = new Texture(renderer, "..\\images\\paddle.png");
+	Vector2D posPaddle(WIN_HEIGHT*0.75, WIN_WIDTH/2);
+	paddlecentro = new Paddle(posPaddle, 10, 60, origen, paddleRend);
+
+	//Ball 
+	ballRend = new Texture(renderer, "..\\images\\ball.png");
+	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
+	ballpaddle = new Ball(posBall, 10, 10, origen, ballRend);
+
 }
 
 void Game::render() const{
@@ -42,6 +53,8 @@ void Game::render() const{
 	wallright->render();
 	wallarriba->render();
 	mapa->render();
+	paddlecentro->render();
+	ballpaddle->render();
 	SDL_RenderPresent(renderer);
 }
 

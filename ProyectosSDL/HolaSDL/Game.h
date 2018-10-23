@@ -6,6 +6,8 @@
 #include "SDL_image.h"
 #include "Wall.h"
 #include "BlocksMap.h"
+#include "Ball.h"
+#include "Paddle.h"
 
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
@@ -22,10 +24,14 @@ private:
 	Wall* wallright = nullptr;
 	Wall* wallarriba = nullptr;
 	BlockMap* mapa = nullptr;
+	Paddle* paddlecentro = nullptr;
+	Ball* ballpaddle = nullptr;
 	bool exit = false;
 	Texture* blocks = nullptr;
 	Texture* wallsides = nullptr;
 	Texture* walltop = nullptr;
+	Texture* paddleRend = nullptr;
+	Texture* ballRend = nullptr;
 
 public:
 	Game();
