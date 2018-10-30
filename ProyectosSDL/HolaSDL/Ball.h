@@ -20,7 +20,6 @@ public:
 
 	Ball(Vector2D pos, int anch, int alt, Vector2D veldir, Texture* p) :
 		pos(pos), alt(alt), anch(anch), veldir(veldir), b(p){}
-	~Ball();
 	void render();
 
 };
