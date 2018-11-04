@@ -13,13 +13,15 @@ private:
 	int alt;
 	int anch;
 	Vector2D veldir;
-
+	Vector2D normal;
 	Texture* p = nullptr;
 
 public:
 
 	Paddle(Vector2D pos, int alt, int anch,  Vector2D veldir, Texture* p) :
-		pos(pos), alt(alt), anch(anch), veldir(veldir), p(p){}
+		pos(pos), alt(alt), anch(anch), veldir(veldir), p(p) {
+		normal = Vector2D(0, -1);
+	}
 	void render();
 	void update();
 	void handleEvents(SDL_Event& event);

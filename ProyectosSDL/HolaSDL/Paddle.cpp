@@ -15,24 +15,20 @@ void Paddle::render()
 	p->render(destRect);
 
 }void Paddle::update() {
-	if(pos.getx() > anchoW && pos.getx() < (WIN_HEIGHT - anchoW))
+	if(((pos + veldir).getx() > anchoW) && (((pos + veldir).getx() + anch) < (WIN_WIDTH - anchoW)))
 		pos = pos + veldir;
 }
 
 void Paddle::handleEvents(SDL_Event& event) {
-	if (event.type == SDL_KEYDOWN) {
-		if (event.key.keysym.sym == SDLK_LEFT) {
-			veldir = Vector2D(-2, 0);
-		}
-		else if (event.key.keysym.sym == SDLK_RIGHT) {
-			veldir = Vector2D(2, 0);
-		}
-		else {//if(event.key.keysym.sym != SDLK_RIGHT && event.key.keysym.sym != SDLK_LEFT)
-			veldir = Vector2D(0, 0);
-		}
-	}else
+	if (event.key.keysym.sym == SDLK_LEFT) {
+		veldir = Vector2D(-1, 0);
+	}
+	if (event.key.keysym.sym == SDLK_RIGHT) {
+		veldir = Vector2D(1, 0);
+	}
+	if (event.type == SDL_KEYUP) {
 		veldir = Vector2D(0, 0);
-
+	}
 }
 
 

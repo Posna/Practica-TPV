@@ -12,3 +12,11 @@ void Ball::render() {
 	destRect.y = this->pos.gety();
 	b->render(destRect);
 }
+
+void Ball::update() {
+	pos = pos + veldir;
+}
+
+void Ball::coll() {
+
+}

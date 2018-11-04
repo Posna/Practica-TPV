@@ -31,7 +31,7 @@ Game::Game() {
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
 
 	//Paddle
-	Vector2D posPaddle(WIN_HEIGHT*0.75, WIN_WIDTH/2);
+	Vector2D posPaddle(WIN_WIDTH/2, WIN_HEIGHT*0.75);
 	paddlecentro = new Paddle(posPaddle, 10, 60, origen, texturas[PaddleText]);
 
 	//Ball
