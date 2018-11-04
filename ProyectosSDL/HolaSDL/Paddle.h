@@ -21,6 +21,8 @@ public:
 	Paddle(Vector2D pos, int alt, int anch,  Vector2D veldir, Texture* p) :
 		pos(pos), alt(alt), anch(anch), veldir(veldir), p(p){}
 	void render();
+	void update();
+	void handleEvents(SDL_Event& event);
 
 
 };

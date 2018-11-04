@@ -15,6 +15,7 @@ const int WIN_HEIGHT = 600;
 const int NUM_TEXTURES = 5;
 const uint anchoW = 20;
 const string RUTA = "..\\images\\";
+const uint32_t FRAME_RATE = 60;
 
 
 

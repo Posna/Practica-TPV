@@ -51,6 +51,34 @@ void Game::render() const{
 	SDL_RenderPresent(renderer);
 }
 
+void Game::handleEvents() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !exit) {
+		if (event.type == SDL_QUIT) exit = true;
+		paddlecentro->handleEvents(event);
+	}
+}
+
+void Game::run() {
+	uint32_t startTime, frameTime;
+	startTime = SDL_GetTicks();
+
+	while (!exit) {
+		handleEvents();
+		frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
+		if (frameTime >= FRAME_RATE) {
+			update(); // Actualiza el estado de todos los objetos del juego
+			startTime = SDL_GetTicks();
+		}
+		render();
+	}
+
+}
+
+void Game::update() {
+	paddlecentro->update();
+}
+
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
 	delete wallleft;

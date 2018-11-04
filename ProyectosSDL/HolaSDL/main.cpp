@@ -11,8 +11,7 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[]){
 	Game* game = new Game();
-	game->render();
-	SDL_Delay(50000);
+	game->run();
 	game->~Game(); //delete
 	return 0;
 }
