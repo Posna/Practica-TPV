@@ -10,12 +10,12 @@ void Paddle::render()
 	destRect.w = this-> anch;
 	destRect.h = this-> alt;
 
-	destRect.x = this->pos.getx();
-	destRect.y = this->pos.gety();
+	destRect.x = this->pos.getX();
+	destRect.y = this->pos.getY();
 	p->render(destRect);
 
 }void Paddle::update() {
-	if(((pos + veldir).getx() > anchoW) && (((pos + veldir).getx() + anch) < (WIN_WIDTH - anchoW)))
+	if(((pos + veldir).getX() > anchoW) && (((pos + veldir).getX() + anch) < (WIN_WIDTH - anchoW)))
 		pos = pos + veldir;
 }
 

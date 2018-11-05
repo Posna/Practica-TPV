@@ -32,11 +32,11 @@ Game::Game() {
 
 	//Paddle
 	Vector2D posPaddle(WIN_WIDTH/2, WIN_HEIGHT*0.75);
-	paddlecentro = new Paddle(posPaddle, 10, 60, origen, texturas[PaddleText]);
+	paddlecentro = new Paddle(posPaddle, largoP/6, largoP, origen, texturas[PaddleText]);
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
-	ballpaddle = new Ball(posBall, 10, 10, origen, texturas[BallText]);
+	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(1, -1), texturas[BallText], this);
 
 }
 
@@ -77,6 +77,13 @@ void Game::run() {
 
 void Game::update() {
 	paddlecentro->update();
+	ballpaddle->update();
+}
+
+Vector2D Game::collides() {
+	Vector2D col(0, 0);
+	Block* bloque = mapa->collides(ballpaddle->dimball(), ballpaddle->getvel(), col);
+	return col;
 }
 
 Game::~Game() {

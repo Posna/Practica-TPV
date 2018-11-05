@@ -18,5 +18,10 @@ public:
 	Block(Vector2D pos, int color, uint fila, uint columna, Texture* t, uint w, uint h) :
 		pos(pos), color(color), fila(fila), columna(columna), textura(t), w(w), h(h) {}
 	void render() const;
+	int getH();
+	int getW();
+	int getY();
+	int getX();
+	Vector2D getPos();
 };
 #endif
