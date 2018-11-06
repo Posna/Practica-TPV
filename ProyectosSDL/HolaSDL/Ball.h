@@ -11,10 +11,12 @@ class Game;
 
 class Ball {
 private:
+	Vector2D posini;
 	Vector2D pos;
 	int anch = 0;
 	int alt = 0;
 	Vector2D veldir;
+	Vector2D veldirini;
 	Game* game;
 	
 
@@ -22,10 +24,14 @@ private:
 public:
 
 	Ball(Vector2D pos, int anch, int alt, Vector2D veldir, Texture* p, Game* game) :
-		pos(pos), alt(alt), anch(anch), veldir(veldir), b(p), game(game){}
+		pos(pos), alt(alt), anch(anch), veldir(veldir), b(p), game(game) {
+		posini = pos;
+		veldirini = veldir;
+	}
 	void render();
 	void update();
 	void coll();
+	bool muerto();
 	Vector2D collWall();
 	SDL_Rect dimball();
 };

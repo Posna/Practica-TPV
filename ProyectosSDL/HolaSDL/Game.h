@@ -23,6 +23,7 @@ const uint largoP = 70;
 
 class Game {
 private:
+	int numvidas = 3;
 	SDL_Window * window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	Wall* wallleft = nullptr;
@@ -48,5 +49,6 @@ public:
 	void update();
 	void handleEvents();
 	Vector2D collides(SDL_Rect dimball, Vector2D vel);
+	bool muerto();
 };
 #endif

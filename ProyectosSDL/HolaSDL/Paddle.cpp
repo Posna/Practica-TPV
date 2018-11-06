@@ -20,14 +20,17 @@ void Paddle::render()
 }
 
 void Paddle::handleEvents(SDL_Event& event) {
-	if (event.key.keysym.sym == SDLK_LEFT) {
-		veldir = Vector2D(-1, 0);
-	}
-	if (event.key.keysym.sym == SDLK_RIGHT) {
-		veldir = Vector2D(1, 0);
+	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_LEFT) {
+			veldir = Vector2D(-1, 0);
+		}
+		if (event.key.keysym.sym == SDLK_RIGHT) {
+			veldir = Vector2D(1, 0);
+		}
 	}
 	if (event.type == SDL_KEYUP) {
-		veldir = Vector2D(0, 0);
+		if(event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_LEFT)
+			veldir = Vector2D(0, 0);
 	}
 }
 

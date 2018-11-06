@@ -62,15 +62,18 @@ void Game::handleEvents() {
 void Game::run() {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
-
-	while (!exit) {
-		handleEvents();
-		frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
-		if (frameTime >= FRAME_RATE) {
-			update(); // Actualiza el estado de todos los objetos del juego
-			startTime = SDL_GetTicks();
+	while (numvidas > 0 && !exit && !mapa->nobloques()) {
+		cout << "Numero de vidas:" << numvidas << endl;
+		while (!exit && !mapa->nobloques() && ballpaddle->muerto()) {
+			handleEvents();
+			frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
+			if (frameTime >= FRAME_RATE) {
+				update(); // Actualiza el estado de todos los objetos del juego
+				startTime = SDL_GetTicks();
+			}
+			render();
 		}
-		render();
+		numvidas--;
 	}
 
 }
@@ -83,6 +86,8 @@ void Game::update() {
 Vector2D Game::collides(SDL_Rect dimball, Vector2D vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
+	if (bloque != nullptr)
+		mapa->destroyblock(bloque);
 	return col;
 }
 

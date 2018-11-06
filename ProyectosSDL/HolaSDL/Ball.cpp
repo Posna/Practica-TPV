@@ -33,8 +33,8 @@ Vector2D Ball::collWall() {
 		return Vector2D(-1, 0);
 	if (pos.getY() <= anchoW)
 		return Vector2D(0, 1);
-	if ((pos.getY() + alt) >= (WIN_HEIGHT - anchoW))
-		return Vector2D(0, 1);
+	//if ((pos.getY() + alt) >= (WIN_HEIGHT - anchoW))
+	//	return Vector2D(0, 1);
 	return Vector2D(0, 0);
 }
 
@@ -50,4 +50,15 @@ SDL_Rect Ball::dimball() {
 	destRect.x = pos.getX();
 	destRect.y = pos.getY();
 	return destRect;
+}
+
+bool Ball::muerto() {
+	if (pos.getY() <= WIN_HEIGHT) {
+		return true;
+	}
+	else {
+		pos = posini;
+		veldir = veldirini;
+		return false;
+	}
 }

@@ -22,6 +22,8 @@ public:
 	int getW();
 	int getY();
 	int getX();
+	int getF();
+	int getC();
 	Vector2D getPos();
 };
 #endif

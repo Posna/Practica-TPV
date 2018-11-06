@@ -26,7 +26,8 @@ BlockMap::BlockMap(Texture* t, string archivo) {
 					bloques[i][j] = nullptr;
 				}
 				else {
-					bloques[i][j] = new Block(pos, color, 1, 1, t, wB, hB);
+					bloques[i][j] = new Block(pos, color, i, j, t, wB, hB);
+					numbloques++;
 				}
 			}
 		}
@@ -55,9 +56,6 @@ BlockMap::~BlockMap() {
 }
 
 bool BlockMap::enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq) {
-	if (pos.getY() < (WIN_HEIGHT / 2)) {
-		int a = 2;
-	}
 	return ((pos.getX() >= posB.getX()) && (pos.getX() <= (posB.getX() + Wbloq)) && (pos.getY() >= posB.getY()) && (pos.getY() <= (posB.getY() + Hbloq)));
 }
 
@@ -68,31 +66,10 @@ del espacio del mapa) devuelve nullptr.
 Block* BlockMap::blockAt(const Vector2D& p) {
 	bool col = false;
 	Block* bloque = nullptr;
-	/*cout << (int)trunc(p.getX() * 100) << " ";
-	if (p.getY() < WIN_HEIGHT / 2) {
-		return bloques[(int)trunc(((p.getX() - anchoW) / (wB - anchoW)))][(int)trunc(((p.getY() - anchoW) / (hB - anchoW)))];
+	if (p.getY() < ((WIN_HEIGHT) / 2) + anchoW) {
+		return bloques[(int)trunc(((p.getY() - anchoW) / (hB)))][(int)trunc(((p.getX() - anchoW) / (wB)))];
 	}
-	else return nullptr;*/
-
-
-	int i, j;
-	i = 0;
-	while (i < dimy && !col)
-	{
-		j = 0;
-		while (j < dimx && !col) {
-			if (bloques[i][j] != nullptr && enbloque(p, bloques[i][j]->getPos(), bloques[i][j]->getW(), bloques[i][j]->getH())) {
-				col = true;
-				bloque = bloques[i][j];
-				//delete bloques[i][j];
-				//bloques[i][j] = nullptr;
-			}
-			j++;
-		}
-		i++;
-	}
-
-	return bloque;
+	else return nullptr;
 }
 
 /* Dados el rectángulo y vector de dirección de la pelota, devuelve un puntero al
@@ -153,5 +130,21 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 		}
 		else if ((b = blockAt(p0))) collVector = { 1,0 };
 	}
+	if (b != nullptr) {
+		int a = 0;
+	}
 	return b;
+}
+
+void BlockMap::destroyblock(Block* bloq) {
+	//bool encontrado = false;
+	numbloques--;
+	int f = bloq->getF();
+	int c = bloq->getC();
+	delete bloques[f][c];
+	bloques[f][c] = nullptr;
+}
+
+bool BlockMap::nobloques() {
+	return (numbloques == 0);
 }

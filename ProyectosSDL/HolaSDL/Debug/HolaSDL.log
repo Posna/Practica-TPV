@@ -1,11 +1,2 @@
-﻿  BlocksMap.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(20): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(22): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(37): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(38): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(46): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(47): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(61): warning C4018: '<=': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(80): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(83): warning C4018: '<': no coinciden signed/unsigned
-  HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
+﻿  Game.cpp
+  HolaSDL.vcxproj -> C:\hlocal\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
