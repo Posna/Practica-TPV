@@ -18,9 +18,9 @@ void Ball::render() {
 void Ball::coll() {
 	Vector2D norm = collWall();
 	if (norm.getX() == 0 && norm.getY() == 0) {
-		norm = game->collides();
+		norm = game->collides(dimball(), veldir);
 	}
-	veldir.normaliza();
+	norm.normaliza();
 	if (norm.getX() != 0 || norm.getY() != 0) {
 		veldir = veldir - (norm * 2 * (norm*veldir));
 	}
@@ -51,8 +51,3 @@ SDL_Rect Ball::dimball() {
 	destRect.y = pos.getY();
 	return destRect;
 }
-Vector2D Ball::getvel() {
-	return this->veldir;
-}
-
-

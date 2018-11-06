@@ -36,7 +36,7 @@ Game::Game() {
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
-	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(1, -1), texturas[BallText], this);
+	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(-1, -1), texturas[BallText], this);
 
 }
 
@@ -80,9 +80,9 @@ void Game::update() {
 	ballpaddle->update();
 }
 
-Vector2D Game::collides() {
+Vector2D Game::collides(SDL_Rect dimball, Vector2D vel) {
 	Vector2D col(0, 0);
-	Block* bloque = mapa->collides(ballpaddle->dimball(), ballpaddle->getvel(), col);
+	Block* bloque = mapa->collides(dimball, vel, col);
 	return col;
 }
 

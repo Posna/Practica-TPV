@@ -28,7 +28,5 @@ public:
 	void coll();
 	Vector2D collWall();
 	SDL_Rect dimball();
-	Vector2D getvel();
-
 };
 #endif

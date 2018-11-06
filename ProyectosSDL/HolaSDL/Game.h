@@ -47,6 +47,6 @@ public:
 	void render() const;
 	void update();
 	void handleEvents();
-	Vector2D collides();
+	Vector2D collides(SDL_Rect dimball, Vector2D vel);
 };
 #endif

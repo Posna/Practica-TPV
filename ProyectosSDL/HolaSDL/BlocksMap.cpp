@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Game.h"
 #include <fstream>
+#include <math.h>
 
 
 BlockMap::BlockMap(Texture* t, string archivo) {
@@ -67,6 +68,13 @@ del espacio del mapa) devuelve nullptr.
 Block* BlockMap::blockAt(const Vector2D& p) {
 	bool col = false;
 	Block* bloque = nullptr;
+	/*cout << (int)trunc(p.getX() * 100) << " ";
+	if (p.getY() < WIN_HEIGHT / 2) {
+		return bloques[(int)trunc(((p.getX() - anchoW) / (wB - anchoW)))][(int)trunc(((p.getY() - anchoW) / (hB - anchoW)))];
+	}
+	else return nullptr;*/
+
+
 	int i, j;
 	i = 0;
 	while (i < dimy && !col)
@@ -95,7 +103,7 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 	Vector2D p0 = { (double)ballRect.x, (double)ballRect.y }; // top-left
 	Vector2D p1 = { (double)ballRect.x + (double)ballRect.w, (double)ballRect.y }; // top-right
 	Vector2D p2 = { (double)ballRect.x, (double)ballRect.y + (double)ballRect.h }; // bottom-left
-	Vector2D p3 = { (double)ballRect.x + (double)ballRect.w, (double)ballRect.y + (double)ballRect.h }; // bottom-right
+	Vector2D p3 = { (double)ballRect.x + (double)ballRect.w, (double)ballRect.y + ballRect.h }; // bottom-right
 	Block* b = nullptr;
 	if (ballVel.getX() < 0 && ballVel.getY() < 0) {
 		if ((b = blockAt(p0))) {
