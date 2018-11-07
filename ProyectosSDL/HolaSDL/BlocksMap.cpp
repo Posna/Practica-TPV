@@ -66,7 +66,7 @@ del espacio del mapa) devuelve nullptr.
 Block* BlockMap::blockAt(const Vector2D& p) {
 	bool col = false;
 	Block* bloque = nullptr;
-	if (p.getY() < ((WIN_HEIGHT) / 2) + anchoW) {
+	if ((p.getY() < ((WIN_HEIGHT) / 2) + anchoW) && p.getX() > anchoW && p.getX() < WIN_WIDTH - anchoW) {
 		return bloques[(int)trunc(((p.getY() - anchoW) / (hB)))][(int)trunc(((p.getX() - anchoW) / (wB)))];
 	}
 	else return nullptr;

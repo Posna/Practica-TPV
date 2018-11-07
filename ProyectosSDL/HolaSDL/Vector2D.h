@@ -15,8 +15,8 @@ public:
 	Vector2D() {}
 	Vector2D(double x, double y) :
 		x(x), y(y) {}
-	int getX() const;
-	int getY() const;
+	double getX() const;
+	double getY() const;
 	void normaliza();
 	Vector2D operator+(const Vector2D& v) const;
 	Vector2D operator-(const Vector2D& v) const;

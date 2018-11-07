@@ -32,7 +32,7 @@ Game::Game() {
 
 	//Paddle
 	Vector2D posPaddle(WIN_WIDTH/2, WIN_HEIGHT*0.75);
-	paddlecentro = new Paddle(posPaddle, largoP/6, largoP, origen, texturas[PaddleText]);
+	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
@@ -89,8 +89,9 @@ Vector2D Game::collides(SDL_Rect dimball, Vector2D vel) {
 	if (bloque != nullptr) {
 		mapa->destroyblock(bloque);
 	}
-	col = paddlecentro->coll(dimball, vel) + col;
-
+	else{
+		col = paddlecentro->coll(dimball, vel);
+	}
 	return col;
 }
 

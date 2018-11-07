@@ -17,14 +17,10 @@ void Ball::render() {
 
 void Ball::coll() {
 	Vector2D norm = collWall();
-	if (norm.getX() == 0 && norm.getY() == 0) {
-		norm = game->collides(dimball(), veldir);
-	}
+	norm = game->collides(dimball(), veldir) + norm;
 	norm.normaliza();
-	if (norm.getX() != 0 || norm.getY() != 0) {
-		int a = 0;
-	}
 	veldir = veldir - (norm * 2 * (norm*veldir));
+	//veldir.normaliza();
 }
 
 Vector2D Ball::collWall() {

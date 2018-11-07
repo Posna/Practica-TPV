@@ -37,23 +37,23 @@ void Paddle::handleEvents(SDL_Event& event) {
 Vector2D Paddle::coll(SDL_Rect dimball, Vector2D vel) {
 	double paso1, paso2, paso3;
 	Vector2D centro = { (double)(dimball.x + dimball.w / 2), (double)(dimball.y + dimball.h / 2) };
-	if ((centro.getX() >= pos.getX()) && (centro.getX() <= (pos.getX() + anch))&& (centro.getY() >= pos.getY()) && (centro.getY() <= (pos.getY() + alt))) {  //&& pos.getY() == centro.getY())
+	if ((centro.getX() >= pos.getX()) && (centro.getX() <= (pos.getX() + anch)) && (centro.getY() >= pos.getY()) && (centro.getY() <= (pos.getY() + alt))) {  //&& pos.getY() == centro.getY())
 		paso1 = pos.getX() + (anch / 2);
 		paso2 = centro.getX() - paso1;
 		paso3 = paso2 / (anch / 2);
-		/*if (vel.getX() > 0) {
+		if (vel.getX() > 0) {
 			if (((centro.getY() - pos.getY()) <= (centro.getX() - pos.getX()))) {
-				return Vector2D(0, -1);
+				return Vector2D(paso3, -1);
 			}
 			else { return Vector2D(-1, 0); }
 		}
 		else {
 			if (((centro.getY() - pos.getY()) <= (pos.getX() + anch - centro.getX()))) {
-				return Vector2D(-1, -1);
+				return Vector2D(paso3, -1);
 			}
 			else { return Vector2D(-1, 0); }
-		}*/
-		return Vector2D(-1, -1);
+		}
+		//return Vector2D(paso3, -1);
 	}
 	//else if (centro.getX() >= pos.getX() && (centro.getX() < pos.getX() + anch/4 ) && pos.getY() < centro.getY() && (centro.getY() < pos.getY() + alt)) { return Vector2D(-1, 0); }
 	//mirar ocmo esta hecho lo bloques para que por los lados rebote normal
