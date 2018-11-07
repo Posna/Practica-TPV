@@ -13,5 +13,6 @@ int main(int argc, char* argv[]){
 	Game* game = new Game();
 	game->run();
 	game->~Game(); //delete
+	system("pause");
 	return 0;
 }

@@ -13,9 +13,14 @@ Game::Game() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
-	//Inicializacion de las texturas
-	for (int i = 0; i < NUM_TEXTURES; i++) {
-		texturas[i] = new Texture(renderer, (RUTA + atributos[i].nombre), atributos[i].row, atributos[i].col);
+	try {
+		//Inicializacion de las texturas
+		for (int i = 0; i < NUM_TEXTURES; i++) {
+			texturas[i] = new Texture(renderer, (RUTA + atributos[i].nombre), atributos[i].row, atributos[i].col);
+		}
+	}
+	catch(exception e){
+		cout << "Fichero de imagen no encontrado";
 	}
 	//muro izq
 	wallleft = new Wall(origen, anchoW, WIN_HEIGHT, texturas[SideText]);
@@ -31,7 +36,7 @@ Game::Game() {
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
 
 	//Paddle
-	Vector2D posPaddle(((WIN_WIDTH*0.75) - (largoP/2) + (ballAA/2)), WIN_HEIGHT*0.75);
+	Vector2D posPaddle((WIN_WIDTH/2), WIN_HEIGHT*0.75);
 	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
 
 	//Ball

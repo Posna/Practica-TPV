@@ -1,4 +1,2 @@
-﻿  Paddle.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\paddle.cpp(13): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\paddle.cpp(14): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+﻿  Game.cpp
   HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
