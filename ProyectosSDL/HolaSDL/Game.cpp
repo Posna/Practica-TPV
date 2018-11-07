@@ -86,8 +86,11 @@ void Game::update() {
 Vector2D Game::collides(SDL_Rect dimball, Vector2D vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
-	if (bloque != nullptr)
+	if (bloque != nullptr) {
 		mapa->destroyblock(bloque);
+	}
+	col = paddlecentro->coll(dimball, vel) + col;
+
 	return col;
 }
 

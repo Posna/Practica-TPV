@@ -22,8 +22,9 @@ void Ball::coll() {
 	}
 	norm.normaliza();
 	if (norm.getX() != 0 || norm.getY() != 0) {
-		veldir = veldir - (norm * 2 * (norm*veldir));
+		int a = 0;
 	}
+	veldir = veldir - (norm * 2 * (norm*veldir));
 }
 
 Vector2D Ball::collWall() {
@@ -33,8 +34,8 @@ Vector2D Ball::collWall() {
 		return Vector2D(-1, 0);
 	if (pos.getY() <= anchoW)
 		return Vector2D(0, 1);
-	//if ((pos.getY() + alt) >= (WIN_HEIGHT - anchoW))
-	//	return Vector2D(0, 1);
+	if ((pos.getY() + alt) >= (WIN_HEIGHT - anchoW))
+		return Vector2D(0, 1);
 	return Vector2D(0, 0);
 }
 

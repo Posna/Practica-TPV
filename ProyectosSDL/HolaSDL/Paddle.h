@@ -7,6 +7,8 @@
 #include "Texture.h"
 #include "Vector2D.h"
 
+const int velocity = 2;
+
 class Paddle {
 private:
 	Vector2D pos;
@@ -25,6 +27,7 @@ public:
 	void render();
 	void update();
 	void handleEvents(SDL_Event& event);
+	Vector2D coll(SDL_Rect dimball, Vector2D vel);
 
 
 };

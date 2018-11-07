@@ -17,7 +17,7 @@ const uint anchoW = 20;
 const string RUTA = "..\\images\\";
 const uint32_t FRAME_RATE = 5;
 const uint ballAA = 10;
-const uint largoP = 70;
+const uint largoP = 100;
 
 
 
