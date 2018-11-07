@@ -27,7 +27,7 @@ public:
 	void render();
 	void update();
 	void handleEvents(SDL_Event& event);
-	Vector2D coll(SDL_Rect dimball, Vector2D vel);
+	Vector2D coll(SDL_Rect dimball, Vector2D& vel);
 
 
 };

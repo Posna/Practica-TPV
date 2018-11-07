@@ -16,7 +16,7 @@ const int NUM_TEXTURES = 5;
 const uint anchoW = 20;
 const string RUTA = "..\\images\\";
 const uint32_t FRAME_RATE = 5;
-const uint ballAA = 10;
+const uint ballAA = 17;
 const uint largoP = 100;
 
 
@@ -48,7 +48,6 @@ public:
 	void render() const;
 	void update();
 	void handleEvents();
-	Vector2D collides(SDL_Rect dimball, Vector2D vel);
-	bool muerto();
+	Vector2D collides(SDL_Rect dimball, Vector2D& vel);
 };
 #endif

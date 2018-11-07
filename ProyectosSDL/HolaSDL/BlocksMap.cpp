@@ -130,14 +130,10 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 		}
 		else if ((b = blockAt(p0))) collVector = { 1,0 };
 	}
-	if (b != nullptr) {
-		int a = 0;
-	}
 	return b;
 }
 
 void BlockMap::destroyblock(Block* bloq) {
-	//bool encontrado = false;
 	numbloques--;
 	int f = bloq->getF();
 	int c = bloq->getC();

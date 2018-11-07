@@ -31,12 +31,12 @@ Game::Game() {
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
 
 	//Paddle
-	Vector2D posPaddle(WIN_WIDTH/2, WIN_HEIGHT*0.75);
+	Vector2D posPaddle(((WIN_WIDTH*0.75) - (largoP/2) + (ballAA/2)), WIN_HEIGHT*0.75);
 	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
-	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(-1, -1), texturas[BallText], this);
+	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
 
 }
 
@@ -75,6 +75,9 @@ void Game::run() {
 		}
 		numvidas--;
 	}
+	if (numvidas == 0) {
+		cout << "Has Muerto" << endl;
+	}
 
 }
 
@@ -83,7 +86,7 @@ void Game::update() {
 	ballpaddle->update();
 }
 
-Vector2D Game::collides(SDL_Rect dimball, Vector2D vel) {
+Vector2D Game::collides(SDL_Rect dimball, Vector2D& vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
 	if (bloque != nullptr) {
