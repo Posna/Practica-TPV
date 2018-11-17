@@ -2,6 +2,7 @@
 #define VECTOR2D_H_
 #include <iostream>
 #include <string>
+#include "checkML.h"
 
 using namespace std;
 

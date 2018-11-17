@@ -8,16 +8,19 @@
 #include "BlocksMap.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "checkML.h"
 
 const enum TexturesName{BallText, PaddleText, BricksText, SideText, TopsideText};
+const enum WallName {WallLeft, WallUp, WallRight};
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
 const int NUM_TEXTURES = 5;
 const uint anchoW = 20;
 const string RUTA = "..\\images\\";
 const uint32_t FRAME_RATE = 5;
-const uint ballAA = 17;
+const uint ballAA = 18;
 const uint largoP = 100;
+const int NUM_MUROS = 3;
 
 
 
@@ -26,9 +29,7 @@ private:
 	int numvidas = 3;
 	SDL_Window * window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	Wall* wallleft = nullptr;
-	Wall* wallright = nullptr;
-	Wall* wallarriba = nullptr;
+	Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
 	Paddle* paddlecentro = nullptr;
 	Ball* ballpaddle = nullptr;
@@ -47,7 +48,8 @@ public:
 	void run();
 	void render() const;
 	void update();
+	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
 	void handleEvents();
-	Vector2D collides(SDL_Rect dimball, Vector2D& vel);
+	Vector2D collides(SDL_Rect dimball, const Vector2D& vel);
 };
 #endif

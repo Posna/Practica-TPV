@@ -16,25 +16,12 @@ void Ball::render() {
 }
 
 void Ball::coll() {
-	Vector2D norm = collWall();
-	if(norm.getX() == 0 && norm.getY() == 0)
-		norm = game->collides(dimball(), veldir);
-	if (norm.getX() != 0 || norm.getY() != 0) {
-		norm.normaliza();
-		veldir = veldir - (norm * 2 * (norm*veldir));
-	}
-	veldir.normaliza();
-	veldir = veldir * 2;
-}
-
-Vector2D Ball::collWall() {
-	if (pos.getX() <= anchoW)
-		return Vector2D(1, 0);
-	if ((pos.getX() + anch) >= (WIN_WIDTH - anchoW))
-		return Vector2D(-1, 0);
-	if (pos.getY() <= anchoW)
-		return Vector2D(0, 1);
-	return Vector2D(0, 0);
+	Vector2D norm = { 0,0 };
+	norm = game->collides(dimball(), veldir);
+	norm.normaliza();
+	veldir = veldir - (norm * 2 * (norm*veldir));
+	//veldir.normaliza();
+	//veldir = veldir * 2;
 }
 
 void Ball::update() {

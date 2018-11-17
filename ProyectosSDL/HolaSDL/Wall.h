@@ -3,6 +3,7 @@
 #include <string>
 #include "Vector2D.h"
 #include "Texture.h"
+#include "checkML.h"
 
 typedef unsigned int uint;
 
@@ -18,6 +19,8 @@ public:
 		pos(pos), h(h), w(w) {
 		this->t = t;
 	}
+	Vector2D collWall(const SDL_Rect& ballRect, const Vector2D& ballVel);
 	void render()const;
+	bool enWall(Vector2D p);
 };
 #endif

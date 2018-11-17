@@ -2,6 +2,7 @@
 #define BLOCK_MAP
 #include "Block.h"
 #include "Vector2D.h"
+#include "checkML.h"
 
 
 class BlockMap

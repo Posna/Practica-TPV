@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Texture.h"
+#include "checkML.h"
 #include "Vector2D.h"
 
 const int velocity = 2;
@@ -27,7 +28,7 @@ public:
 	void render();
 	void update();
 	void handleEvents(SDL_Event& event);
-	Vector2D coll(SDL_Rect dimball, Vector2D& vel);
+	Vector2D coll(SDL_Rect dimball, Vector2D vel);
 
 
 };
