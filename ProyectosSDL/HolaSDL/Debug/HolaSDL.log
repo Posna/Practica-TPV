@@ -1,21 +1,2 @@
-﻿  Ball.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\ball.cpp(13): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\ball.cpp(14): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\ball.cpp(36): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\ball.cpp(37): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-  BlocksMap.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(20): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(22): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(38): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(39): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(47): warning C4018: '<': no coinciden signed/unsigned
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(48): warning C4018: '<': no coinciden signed/unsigned
-  Game.cpp
-  main.cpp
-c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': redefinición de macro
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: vea la definición anterior de '_malloca'
-  Paddle.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\paddle.cpp(13): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\paddle.cpp(14): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-  Generando código...
+﻿  Game.cpp
   HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe

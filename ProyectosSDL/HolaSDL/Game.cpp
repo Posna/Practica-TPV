@@ -23,14 +23,14 @@ Game::Game() {
 		cout << "Fichero de imagen no encontrado";
 	}
 	//muro izq
-	walls[WallLeft] = new Wall(origen, anchoW, WIN_HEIGHT, texturas[SideText]);
+	walls[WallLeft] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
-	walls[WallRight] = new Wall(poswallright, anchoW, WIN_HEIGHT, texturas[SideText]);
+	walls[WallRight] = new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT);
 
 	//muro arriba
-	walls[WallUp] = new Wall(origen, WIN_WIDTH, anchoW, texturas[TopsideText]);
+	walls[WallUp] = new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW);
 
 	//mapa de bloques
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
@@ -54,6 +54,11 @@ void Game::render() const{
 	paddlecentro->render();
 	ballpaddle->render();
 	SDL_RenderPresent(renderer);
+}
+
+void Game::update() {
+	paddlecentro->update();
+	ballpaddle->update();
 }
 
 void Game::run() {
@@ -86,10 +91,6 @@ void Game::handleEvents() {
 	}
 }
 
-void Game::update() {
-	paddlecentro->update();
-	ballpaddle->update();
-}
 
 Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col = { 0,0 };

@@ -4,13 +4,8 @@
 using namespace std;
 
 
-void Wall::render() const{
-	SDL_Rect destRect;
-	destRect.w = this->w;
-	destRect.h = this->h;
-	destRect.x = this->pos.getX();
-	destRect.y = this->pos.getY();
-	t->render(destRect);
+void Wall::render(){
+	GameObject::render(this->t, getRect());
 }
 
 bool Wall::enWall(Vector2D p) {
