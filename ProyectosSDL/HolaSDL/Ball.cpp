@@ -6,13 +6,7 @@
 using namespace std;
 
 void Ball::render() {
-
-	SDL_Rect destRect;
-	destRect.w = this->anch;
-	destRect.h = this->alt;
-	destRect.x = this->pos.getX();
-	destRect.y = this->pos.getY();
-	b->render(destRect);
+	this->t->render(getRect());
 }
 
 void Ball::coll() {
@@ -30,12 +24,13 @@ void Ball::update() {
 }
 
 SDL_Rect Ball::dimball() {
-	SDL_Rect destRect;
+	/*SDL_Rect destRect;
 	destRect.w = anch;
 	destRect.h = alt;
 	destRect.x = pos.getX();
 	destRect.y = pos.getY();
-	return destRect;
+	return destRect;*/
+	return this->getRect();
 }
 
 bool Ball::muerto() {

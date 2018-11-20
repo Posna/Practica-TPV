@@ -17,8 +17,6 @@ protected:
 public:
 	ArkanoidObject(Vector2D pos, Texture* t, uint w, uint h) :
 		pos(pos), t(t), w(w), h(h), veldir(Vector2D(0, 0)) {}
-	ArkanoidObject(Vector2D pos, Texture* t, uint w, uint h, Vector2D veldir) :
-		pos(pos), t(t), w(w), h(h), veldir(veldir) {}
 	void loadFromFile();
 	void saveToFile();
 

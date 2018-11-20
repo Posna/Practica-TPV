@@ -9,6 +9,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "checkML.h"
+#include <list>
 
 const enum TexturesName{BallText, PaddleText, BricksText, SideText, TopsideText};
 const enum WallName {WallLeft, WallUp, WallRight};
@@ -20,7 +21,7 @@ const string RUTA = "..\\images\\";
 const uint32_t FRAME_RATE = 5;
 const uint ballAA = 18;
 const uint largoP = 100;
-const int NUM_MUROS = 3;
+const int NUM_MUROS = 1;
 
 
 
@@ -32,8 +33,9 @@ private:
 	Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
 	Paddle* paddlecentro = nullptr;
-	Ball* ballpaddle = nullptr;
+	//Ball* ballpaddle = nullptr;
 	bool exit = false;
+	ArkanoidObject* objects [15];
 	struct TexturesAtributes {
 		string nombre;
 		int row;

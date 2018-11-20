@@ -12,8 +12,8 @@ private:
 
 
 public:
-	void render(Texture* t, SDL_Rect desRect) const;
-	void update(Vector2D& pos, const Vector2D& veldir);
-	void handleEvents(SDL_Event& event);
+	virtual void render() = 0;
+	virtual void update() = 0;
+	virtual void handleEvents() = 0;
 };
 #endif

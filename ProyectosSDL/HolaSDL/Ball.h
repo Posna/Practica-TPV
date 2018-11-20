@@ -7,16 +7,17 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "checkML.h"
+#include "ArkanoidObject.h"
 
 class Game;
 
-class Ball {
+class Ball: public ArkanoidObject {
 private:
 	Vector2D posini;
-	Vector2D pos;
+	/*Vector2D pos;
 	int anch = 0;
 	int alt = 0;
-	Vector2D veldir;
+	Vector2D veldir;*/
 	Vector2D veldirini;
 	Game* game;
 	
@@ -24,13 +25,14 @@ private:
 	Texture* b = nullptr;
 public:
 
-	Ball(Vector2D pos, int anch, int alt, Vector2D veldir, Texture* p, Game* game) :
-		pos(pos), alt(alt), anch(anch), veldir(veldir), b(p), game(game) {
+	Ball(Vector2D pos, uint w, uint h, Vector2D veldir, Texture* t, Game* game) :
+		ArkanoidObject(pos, t, w, h) {
 		posini = pos;
 		veldirini = veldir;
 	}
-	void render();
-	void update();
+	virtual void render();
+	virtual void update();
+	virtual void handleEvents() {};
 	void coll();
 	bool muerto();
 	Vector2D collWall();

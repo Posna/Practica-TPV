@@ -5,7 +5,7 @@ using namespace std;
 
 
 void Wall::render(){
-	GameObject::render(this->t, getRect());
+	t->render(getRect());
 }
 
 bool Wall::enWall(Vector2D p) {

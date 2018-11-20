@@ -23,14 +23,14 @@ Game::Game() {
 		cout << "Fichero de imagen no encontrado";
 	}
 	//muro izq
-	walls[WallLeft] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
+	objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
-	walls[WallRight] = new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT);
+	objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro arriba
-	walls[WallUp] = new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW);
+	objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
@@ -41,24 +41,27 @@ Game::Game() {
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
-	ballpaddle = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
+	objects[3] = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
 
 }
 
 void Game::render() const{
 	SDL_RenderClear(renderer);
-	for (int i = 0; i < NUM_MUROS; i++) {
-		walls[i]->render();
+	//for (int i = 0; i < NUM_MUROS; i++) {
+	//	walls[i]->render();
+	//}
+	for (int i = 0; i < 4; i++) {
+		objects[i]->render();
 	}
 	mapa->render();
 	paddlecentro->render();
-	ballpaddle->render();
+	//ballpaddle->render();
 	SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
 	paddlecentro->update();
-	ballpaddle->update();
+	objects[3]->update();
 }
 
 void Game::run() {
@@ -66,7 +69,7 @@ void Game::run() {
 	startTime = SDL_GetTicks();
 	while (numvidas > 0 && !exit && !mapa->nobloques()) {
 		cout << "Numero de vidas:" << numvidas << endl;
-		while (!exit && !mapa->nobloques() && ballpaddle->muerto()) {
+		while (!exit && !mapa->nobloques() && static_cast<Ball*>(objects[3])->muerto()) {
 			handleEvents();
 			frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
 			if (frameTime >= FRAME_RATE) {
@@ -95,8 +98,8 @@ void Game::handleEvents() {
 Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col = { 0,0 };
 	int i = 0;
-	while(col.getX() == 0 && col.getY() == 0 && i < NUM_MUROS) {
-		col = walls[i]->collWall(dimball, vel);
+	while(col.getX() == 0 && col.getY() == 0 && i < 3) {
+		col = static_cast<Wall*>(objects[i])->collWall(dimball, vel);
 		i++;
 	}
 	return col;
@@ -118,9 +121,9 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
-	for (int i = 0; i < NUM_MUROS; i++) { delete walls[i];}
+	for (int i = 0; i < 4; i++) { delete objects[i];}
 	delete mapa;
-	delete paddlecentro;
+	//delete paddlecentro;
 	delete ballpaddle;
 
 	SDL_DestroyRenderer(renderer);

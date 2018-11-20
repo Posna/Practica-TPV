@@ -23,6 +23,8 @@ public:
 		this->t = t;
 	}*/
 	Vector2D collWall(const SDL_Rect& ballRect, const Vector2D& ballVel);
-	void render();
+	virtual void render();
+	virtual void update() {};
+	virtual void handleEvents() {};
 };
 #endif
