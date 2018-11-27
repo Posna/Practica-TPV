@@ -3,10 +3,10 @@
 #include "Block.h"
 #include "Vector2D.h"
 #include "checkML.h"
+#include "ArkanoidObject.h"
 
 
-class BlockMap
-{
+class BlockMap: public ArkanoidObject {
 private:
 	Block*** bloques = nullptr;
 	uint wB;
@@ -19,11 +19,11 @@ private:
 public:
 	BlockMap(Texture* t, string archivo);
 	~BlockMap();
-	void render() const;
+	virtual void render();
 	Block* collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);
-	void destroyblock(Block* bloq);
+	//controla cuando para de haber bloque para(se llama en el while del juego)
 	bool nobloques();
+	void destroyblock(Block* bloq);	
 };
-
 #endif

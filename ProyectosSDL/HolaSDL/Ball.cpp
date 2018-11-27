@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void Ball::render() {
-	this->t->render(getRect());
-}
+//void Ball::render() {
+//	this->t->render(getRect());
+//}
 
 void Ball::coll() {
 	Vector2D norm = { 0,0 };

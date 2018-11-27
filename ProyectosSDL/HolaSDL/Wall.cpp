@@ -4,10 +4,6 @@
 using namespace std;
 
 
-void Wall::render(){
-	t->render(getRect());
-}
-
 bool Wall::enWall(Vector2D p) {
 	return ((p.getX() < (pos.getX() + w)) && (p.getX() > pos.getX()) && (p.getY() < (pos.getY() + h) && (p.getY() > pos.getY())));
 }

@@ -24,38 +24,48 @@ Game::Game() {
 	}
 	//muro izq
 	objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
+	objetos.push_back(new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
 	objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
+	objetos.push_back(new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro arriba
 	objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
+	objetos.push_back(new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
+	objetos.push_back(new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark"));
 
 	//Paddle
 	Vector2D posPaddle((WIN_WIDTH/2), WIN_HEIGHT*0.75);
 	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
+	objetos.push_back(new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]));
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
 	objects[3] = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
-
+	objetos.push_back(new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this));
 }
 
-void Game::render() const{
+void Game::render(){
 	SDL_RenderClear(renderer);
+	it = objetos.begin();
 	//for (int i = 0; i < NUM_MUROS; i++) {
 	//	walls[i]->render();
 	//}
-	for (int i = 0; i < 4; i++) {
-		objects[i]->render();
+	for (ArkanoidObject* o: objetos)
+	{
+		o->render();
 	}
-	mapa->render();
-	paddlecentro->render();
-	//ballpaddle->render();
+	//for (int i = 0; i < 4; i++) {
+	//	objects[i]->render();
+	//}
+	//mapa->render();
+	//paddlecentro->render();
+	////ballpaddle->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -124,7 +134,7 @@ Game::~Game() {
 	for (int i = 0; i < 4; i++) { delete objects[i];}
 	delete mapa;
 	//delete paddlecentro;
-	delete ballpaddle;
+	//delete ballpaddle;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

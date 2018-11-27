@@ -10,6 +10,7 @@
 #include "Paddle.h"
 #include "checkML.h"
 #include <list>
+#include <iterator>
 
 const enum TexturesName{BallText, PaddleText, BricksText, SideText, TopsideText};
 const enum WallName {WallLeft, WallUp, WallRight};
@@ -30,6 +31,8 @@ private:
 	int numvidas = 3;
 	SDL_Window * window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	list<ArkanoidObject*> objetos;
+	std::list<ArkanoidObject*>::iterator it;
 	Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
 	Paddle* paddlecentro = nullptr;
@@ -48,7 +51,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void render() const;
+	void render();
 	void update();
 	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
 	void handleEvents();

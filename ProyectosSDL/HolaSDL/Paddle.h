@@ -7,25 +7,19 @@
 #include "Texture.h"
 #include "checkML.h"
 #include "Vector2D.h"
+#include "ArkanoidObject.h"
 
 const int velocity = 2;
 
-class Paddle {
+class Paddle: public ArkanoidObject {
 private:
-	Vector2D pos;
-	int alt;
-	int anch;
 	Vector2D veldir;
-	Vector2D normal;
 	Texture* p = nullptr;
 
 public:
 
-	Paddle(Vector2D pos, int alt, int anch,  Vector2D veldir, Texture* p) :
-		pos(pos), alt(alt), anch(anch), veldir(veldir), p(p) {
-		normal = Vector2D(0, -1);
-	}
-	void render();
+	Paddle(Vector2D pos, uint h, uint w,  Vector2D veldir, Texture* t) : ArkanoidObject(pos, t, w, h, 0, 0),
+	veldir(veldir), p(p) {}
 	void update();
 	void handleEvents(SDL_Event& event);
 	Vector2D coll(SDL_Rect dimball, Vector2D vel);

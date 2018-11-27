@@ -26,11 +26,11 @@ private:
 public:
 
 	Ball(Vector2D pos, uint w, uint h, Vector2D veldir, Texture* t, Game* game) :
-		ArkanoidObject(pos, t, w, h) {
+		ArkanoidObject(pos, t, w, h, 0, 0), game(game) {
 		posini = pos;
 		veldirini = veldir;
 	}
-	virtual void render();
+	//virtual void render();
 	virtual void update();
 	virtual void handleEvents() {};
 	void coll();

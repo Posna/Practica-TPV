@@ -12,15 +12,17 @@ protected:
 	Vector2D pos;
 	uint w;
 	uint h;
+	uint fX = 0;
+	uint fY = 0;
 	Texture* t = nullptr;
 	SDL_Rect getRect();
 public:
-	ArkanoidObject(Vector2D pos, Texture* t, uint w, uint h) :
-		pos(pos), t(t), w(w), h(h), veldir(Vector2D(0, 0)) {}
+	ArkanoidObject(Vector2D pos, Texture* t, uint w, uint h, uint fX, uint fY) :
+		pos(pos), t(t), w(w), h(h), veldir(Vector2D(0, 0)), fX(fX), fY(fY) {}
 	void loadFromFile();
 	void saveToFile();
-
-	/*Texture* getTexture();*/
-
+	virtual void render();
+	virtual void update() {}
+	virtual void handleEvents() {}
 };
 #endif

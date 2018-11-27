@@ -21,6 +21,6 @@ SDL_Rect ArkanoidObject::getRect() {
 	return desRect;
 }
 
-//Texture* ArkanoidObject::getTexture() {
-//	return this->t;
-//}
+void ArkanoidObject::render() {
+	this->t->renderFrame(getRect(), fY, fX);
+}

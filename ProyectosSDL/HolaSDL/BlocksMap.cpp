@@ -5,7 +5,7 @@
 #include <math.h>
 
 
-BlockMap::BlockMap(Texture* t, string archivo) {
+BlockMap::BlockMap(Texture* t, string archivo): ArkanoidObject(Vector2D(0, 0), nullptr, 0, 0, 0, 0) {
 	ifstream fich;
 	fich.open(archivo);
 	if (!fich.is_open()) {
@@ -34,7 +34,7 @@ BlockMap::BlockMap(Texture* t, string archivo) {
 	}
 }
 
-void BlockMap::render() const {
+void BlockMap::render() {
 	for (int i = 0; i < dimy; i++) {
 		for (int j = 0; j < dimx; j++) {
 			if(bloques[i][j] != nullptr)
