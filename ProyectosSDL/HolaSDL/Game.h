@@ -46,7 +46,7 @@ private:
 	};
 	Texture* texturas[NUM_TEXTURES];
 	TexturesAtributes atributos[NUM_TEXTURES] = { "ball.png", 1, 1, "paddle.png", 1, 1, "bricks.png", 2, 3, "side.png", 1, 1, "topside.png", 1, 1};
-
+	void saveGame();
 public:
 	Game();
 	~Game();

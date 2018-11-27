@@ -4,7 +4,6 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 
-const string NAME_FILE; //poner nombre del archivo 
 
 class ArkanoidObject : public GameObject {
 protected:
@@ -20,7 +19,7 @@ public:
 	ArkanoidObject(Vector2D pos, Texture* t, uint w, uint h, uint fX, uint fY) :
 		pos(pos), t(t), w(w), h(h), veldir(Vector2D(0, 0)), fX(fX), fY(fY) {}
 	void loadFromFile();
-	void saveToFile();
+	void saveToFile(ofstream file, string mapa);
 	virtual void render();
 	virtual void update() {}
 	virtual void handleEvents() {}
