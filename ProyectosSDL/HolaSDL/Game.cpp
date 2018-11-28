@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <string>
 #include "Texture.h"
+#include <fstream>
+#include <iostream>
 
 using namespace std;
 typedef unsigned int uint;
@@ -23,30 +25,30 @@ Game::Game() {
 		cout << "Fichero de imagen no encontrado";
 	}
 	//muro izq
-	objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
+	//objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
 	objetos.push_back(new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
-	objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
+	//objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 	objetos.push_back(new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro arriba
-	objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
+	//objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 	objetos.push_back(new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
-	objetos.push_back(new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark"));
+	objetos.push_back(mapa);
 
 	//Paddle
 	Vector2D posPaddle((WIN_WIDTH/2), WIN_HEIGHT*0.75);
 	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
-	objetos.push_back(new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]));
+	objetos.push_back(paddlecentro);
 
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
-	objects[3] = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
+	//objects[3] = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
 	objetos.push_back(new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this));
 }
 
@@ -70,8 +72,12 @@ void Game::render(){
 }
 
 void Game::update() {
-	paddlecentro->update();
-	objects[3]->update();
+	for (ArkanoidObject* o : objetos)
+	{
+		o->update();
+	}
+	//paddlecentro->update();
+	//objects[3]->update();
 }
 
 void Game::run() {
@@ -79,7 +85,8 @@ void Game::run() {
 	startTime = SDL_GetTicks();
 	while (numvidas > 0 && !exit && !mapa->nobloques()) {
 		cout << "Numero de vidas:" << numvidas << endl;
-		while (!exit && !mapa->nobloques() && static_cast<Ball*>(objects[3])->muerto()) {
+		//preguntar sobre la pelota y la muerte de la misma
+		while (!exit && !mapa->nobloques() /*&& static_cast<Ball*>(objects[3])->muerto()*/) {
 			handleEvents();
 			frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
 			if (frameTime >= FRAME_RATE) {
@@ -102,6 +109,17 @@ void Game::handleEvents() {
 		if (event.type == SDL_QUIT) exit = true;
 		paddlecentro->handleEvents(event);
 	}
+}
+
+void Game::saveGame() {
+	string nameFile = "prueba.txt";
+	ofstream file(nameFile);
+	for (ArkanoidObject* o : objetos)
+	{
+		o->saveToFile(file, "mapa1");
+	}
+	file.close();
+
 }
 
 
@@ -131,8 +149,12 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
-	for (int i = 0; i < 4; i++) { delete objects[i];}
-	delete mapa;
+	//for (int i = 0; i < 4; i++) { delete objects[i];}
+	for (ArkanoidObject* o : objetos)
+	{
+		delete o;
+	}
+	//delete mapa;
 	//delete paddlecentro;
 	//delete ballpaddle;
 

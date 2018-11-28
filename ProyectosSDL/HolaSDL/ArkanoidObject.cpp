@@ -1,4 +1,7 @@
 #include "ArkanoidObject.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -7,9 +10,10 @@ void ArkanoidObject::loadFromFile() {
 
 }
 
-void ArkanoidObject::saveToFile() {
-
-
+void ArkanoidObject::saveToFile(ofstream file, string mapa) {
+	//file.open(NAME_FILE + ".txt");
+	file << mapa << endl;
+	file << (int)(pos.getX()) + " " << (int)(pos.getY()) + " " << w + " " << h + " " << endl;
 }
 
 SDL_Rect ArkanoidObject::getRect() {
