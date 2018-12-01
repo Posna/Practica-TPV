@@ -1,8 +1,6 @@
 #include "Game.h"
-#include <string>
 #include "Texture.h"
-#include <fstream>
-#include <iostream>
+
 
 using namespace std;
 typedef unsigned int uint;
@@ -24,50 +22,43 @@ Game::Game() {
 	catch(exception e){
 		cout << "Fichero de imagen no encontrado";
 	}
+
+	//Paddle
+	Vector2D posPaddle((WIN_WIDTH / 2), WIN_HEIGHT*0.75);
+	paddlecentro = new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]);
+	objetos.push_back(paddlecentro);
+
 	//muro izq
-	//objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
+	objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
 	objetos.push_back(new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
-	//objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
+	objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 	objetos.push_back(new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro arriba
-	//objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
+	objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 	objetos.push_back(new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
 	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
 	objetos.push_back(mapa);
 
-	//Paddle
-	Vector2D posPaddle((WIN_WIDTH/2), WIN_HEIGHT*0.75);
-	paddlecentro = new Paddle(posPaddle, largoP/4, largoP, origen, texturas[PaddleText]);
-	objetos.push_back(paddlecentro);
-
 	//Ball
 	Vector2D posBall(WIN_HEIGHT*0.75, WIN_WIDTH /2);
 	//objects[3] = new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this);
 	objetos.push_back(new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this));
+	numBolas++;
+
 }
 
 void Game::render(){
 	SDL_RenderClear(renderer);
-	it = objetos.begin();
-	//for (int i = 0; i < NUM_MUROS; i++) {
-	//	walls[i]->render();
-	//}
 	for (ArkanoidObject* o: objetos)
 	{
 		o->render();
 	}
-	//for (int i = 0; i < 4; i++) {
-	//	objects[i]->render();
-	//}
-	//mapa->render();
-	//paddlecentro->render();
-	////ballpaddle->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -80,13 +71,20 @@ void Game::update() {
 	//objects[3]->update();
 }
 
+void Game::itMov(int num) {
+	it = objetos.begin();
+	for (int i = 0; i < num; i++) {
+		++it;
+	}
+}
+
 void Game::run() {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
 	while (numvidas > 0 && !exit && !mapa->nobloques()) {
 		cout << "Numero de vidas:" << numvidas << endl;
 		//preguntar sobre la pelota y la muerte de la misma
-		while (!exit && !mapa->nobloques() /*&& static_cast<Ball*>(objects[3])->muerto()*/) {
+		while (!exit && !mapa->nobloques() && hayBolas()) {
 			handleEvents();
 			frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
 			if (frameTime >= FRAME_RATE) {
@@ -105,30 +103,66 @@ void Game::run() {
 
 void Game::handleEvents() {
 	SDL_Event event;
+	//saveGame("prueba");
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT) exit = true;
 		paddlecentro->handleEvents(event);
+		if (event.key.keysym.sym == SDLK_s)
+			saveGame("prueba");
+		if (event.key.keysym.sym == SDLK_r)
+			loadGame("prueba");
 	}
 }
 
-void Game::saveGame() {
-	string nameFile = "prueba.txt";
-	ofstream file(nameFile);
-	for (ArkanoidObject* o : objetos)
-	{
-		o->saveToFile(file, "mapa1");
+void Game::saveGame(string name) {
+	it = objetos.begin();
+	ofstream archivo;
+	archivo.open(name + ".txt");
+	for (ArkanoidObject* o : objetos) {
+		o->saveToFile(archivo);
 	}
-	file.close();
+	//mapa->saveToFile(archivo);
+	archivo.close();
+}
+
+void Game::loadGame(string name) {
+	it = objetos.begin();
+	ifstream archivo;
+	archivo.open(name + ".txt");
+	for (ArkanoidObject* o : objetos) {
+		o->loadFromFile(archivo);
+	}
+	archivo.close();
+}
+
+//comprueba si en la lista hay alguna bola o no para poder continuar con el juego
+bool Game::hayBolas() {
+	return numBolas != 0;
 
 }
 
+//Comprueba si algun objeto(pelota o reward) esta por debajo o esta en colision con el paddle
+int Game::CollDead(SDL_Rect p) {
+	if (p.y < WIN_HEIGHT) {
+		if (static_cast<Paddle*>(objetos.front())->inPaddle(p)) {
+			return 1;
+		}
+		return 0;
+	}
+	else {
+		return 2;
+	}
+}
 
 Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col = { 0,0 };
 	int i = 0;
-	while(col.getX() == 0 && col.getY() == 0 && i < 3) {
-		col = static_cast<Wall*>(objects[i])->collWall(dimball, vel);
+	it = objetos.begin();
+	++it;
+	while(col.getX() == 0 && col.getY() == 0 && i < NUM_MUROS) {
+		col = static_cast<Wall*>(*it)->collWall(dimball, vel); //cambiar este array por un iterador que apunte al primer muro y siga hasta el ultimo (NUM_MUROS)
 		i++;
+		++it;
 	}
 	return col;
 }

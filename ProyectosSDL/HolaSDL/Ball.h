@@ -2,16 +2,14 @@
 #define BALL
 #include <iostream>
 #include <string>
-#include "Vector2D.h"
-#include "Texture.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "checkML.h"
-#include "ArkanoidObject.h"
+#include "MovingObject.h"
 
 class Game;
 
-class Ball: public ArkanoidObject {
+class Ball: public MovingObject {
 private:
 	Vector2D posini;
 	/*Vector2D pos;
@@ -26,7 +24,7 @@ private:
 public:
 
 	Ball(Vector2D pos, uint w, uint h, Vector2D veldir, Texture* t, Game* game) :
-		ArkanoidObject(pos, t, w, h, 0, 0), game(game) {
+		MovingObject(pos, t, w, h, 0, 0, veldir), game(game) {
 		posini = pos;
 		veldirini = veldir;
 	}
@@ -35,7 +33,6 @@ public:
 	virtual void handleEvents() {};
 	void coll();
 	bool muerto();
-	Vector2D collWall();
 	SDL_Rect dimball();
 };
 #endif

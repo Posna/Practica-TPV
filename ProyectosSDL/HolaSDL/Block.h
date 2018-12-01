@@ -21,6 +21,7 @@ public:
 	int getX();
 	int getF();
 	int getC();
+	int getColor();
 	Vector2D getPos();
 };
 #endif

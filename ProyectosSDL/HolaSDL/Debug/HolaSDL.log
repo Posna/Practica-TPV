@@ -1,24 +1,2 @@
-﻿  ArkanoidObject.cpp
-c:\hlocal\practica-tpv\proyectossdl\holasdl\arkanoidobject.cpp(21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\hlocal\practica-tpv\proyectossdl\holasdl\arkanoidobject.cpp(22): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  Ball.cpp
-  Block.cpp
-c:\hlocal\practica-tpv\proyectossdl\holasdl\block.cpp(10): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\hlocal\practica-tpv\proyectossdl\holasdl\block.cpp(12): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-  BlocksMap.cpp
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(20): warning C4018: '<': signed/unsigned mismatch
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(22): warning C4018: '<': signed/unsigned mismatch
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(39): warning C4018: '<': signed/unsigned mismatch
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(47): warning C4018: '<': signed/unsigned mismatch
-c:\hlocal\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(48): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
-c:\hlocal\practica-tpv\proyectossdl\holasdl\game.cpp(119): error C2280: 'std::basic_ofstream<char,std::char_traits<char>>::basic_ofstream(const std::basic_ofstream<char,std::char_traits<char>> &)': attempting to reference a deleted function
-  c:\software\programacion\msvstudio2017\vc\tools\msvc\14.15.26726\include\fstream(1180): note: see declaration of 'std::basic_ofstream<char,std::char_traits<char>>::basic_ofstream'
-  c:\software\programacion\msvstudio2017\vc\tools\msvc\14.15.26726\include\fstream(1180): note: 'std::basic_ofstream<char,std::char_traits<char>>::basic_ofstream(const std::basic_ofstream<char,std::char_traits<char>> &)': function was explicitly deleted
-  main.cpp
-c:\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': macro redefinition
-  c:\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: see previous definition of '_malloca'
-  Paddle.cpp
-  Wall.cpp
-  Generating Code...
+﻿  Paddle.cpp
+  HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe

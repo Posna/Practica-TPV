@@ -4,26 +4,22 @@
 #include <string>
 #include "SDL.h"
 #include "SDL_image.h"
-#include "Texture.h"
 #include "checkML.h"
 #include "Vector2D.h"
-#include "ArkanoidObject.h"
+#include "MovingObject.h"
 
 const int velocity = 2;
 
-class Paddle: public ArkanoidObject {
+class Paddle: public MovingObject {
 private:
-	Vector2D veldir;
 	Texture* p = nullptr;
-
+	bool enPaddle = false; //false si la pelota no esta dentro del paddle
 public:
-
-	Paddle(Vector2D pos, uint h, uint w,  Vector2D veldir, Texture* t) : ArkanoidObject(pos, t, w, h, 0, 0),
-	veldir(veldir), p(p) {}
-	void update();
-	void handleEvents(SDL_Event& event);
+	Paddle(Vector2D pos, uint h, uint w,  Vector2D veldir, Texture* t) : MovingObject(pos, t, w, h, 0, 0, veldir),
+	p(p) {}
+	virtual void update();
+	virtual void handleEvents(SDL_Event& event);
 	Vector2D coll(SDL_Rect dimball, Vector2D vel);
-
-
+	bool inPaddle(SDL_Rect p);
 };
 #endif

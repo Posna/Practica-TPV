@@ -20,7 +20,7 @@ void Ball::coll() {
 
 void Ball::update() {
 	coll();
-	pos = pos + veldir;
+	MovingObject::update();
 }
 
 SDL_Rect Ball::dimball() {

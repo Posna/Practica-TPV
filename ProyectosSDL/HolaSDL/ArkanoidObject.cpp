@@ -1,19 +1,18 @@
 #include "ArkanoidObject.h"
-#include <iostream>
-#include <fstream>
-#include <string>
+
 
 using namespace std;
 
-void ArkanoidObject::loadFromFile() {
-
-
+void ArkanoidObject::loadFromFile(ifstream& file) {
+	double x, y;
+	file >> x >> y >> w >> h;
+	pos = Vector2D(x, y);
 }
 
-void ArkanoidObject::saveToFile(ofstream file, string mapa) {
-	//file.open(NAME_FILE + ".txt");
-	file << mapa << endl;
-	file << (int)(pos.getX()) + " " << (int)(pos.getY()) + " " << w + " " << h + " " << endl;
+void ArkanoidObject::saveToFile(ofstream& file) {
+	//int a = (int)(pos.getX());
+	//cout << a << endl;
+	file << (int)(pos.getX()) << " " << (int)(pos.getY()) << " " << w << " " << h << endl;
 }
 
 SDL_Rect ArkanoidObject::getRect() {

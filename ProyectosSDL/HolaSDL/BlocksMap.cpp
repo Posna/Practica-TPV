@@ -12,26 +12,51 @@ BlockMap::BlockMap(Texture* t, string archivo): ArkanoidObject(Vector2D(0, 0), n
 		cout << "No se encuentra el fichero " << archivo << endl;
 	}
 	else {
-		int color;
-		fich >> dimy >> dimx;
-		wB = (WIN_WIDTH - (anchoW*2)) / dimx;
-		hB = (WIN_HEIGHT/2) / dimy;
-		bloques = new Block**[dimy];
-		for (int i = 0; i < dimy; i++) {
-			bloques[i] = new Block*[dimx];
-			for (int j = 0; j < dimx; j++) {
-				Vector2D pos(((j*wB)+anchoW), ((i*hB)+anchoW));
-				fich >> color;
-				if (color == 0) {
-					bloques[i][j] = nullptr;
-				}
-				else {
-					bloques[i][j] = new Block(pos, color, i, j, t, wB, hB);
-					numbloques++;
-				}
+		texture = t;
+		leeMapa(fich);
+	}
+}
+
+void BlockMap::leeMapa(ifstream& file) {
+	int color;
+	file >> dimy >> dimx;
+	wB = (WIN_WIDTH - (anchoW * 2)) / dimx;
+	hB = (WIN_HEIGHT / 2) / dimy;
+	bloques = new Block**[dimy];
+	for (int i = 0; i < dimy; i++) {
+		bloques[i] = new Block*[dimx];
+		for (int j = 0; j < dimx; j++) {
+			Vector2D pos(((j*wB) + anchoW), ((i*hB) + anchoW));
+			file >> color;
+			if (color == 0) {
+				bloques[i][j] = nullptr;
+			}
+			else {
+				bloques[i][j] = new Block(pos, color, i, j, texture, wB, hB);
+				numbloques++;
 			}
 		}
 	}
+}
+
+void BlockMap::saveToFile(ofstream& file) {
+	ArkanoidObject::saveToFile(file);
+	file << dimy << " " << dimx << endl;
+	for (int i = 0; i < dimy; i++) {
+		for (int j = 0; j < dimx; j++) {
+			if (bloques[i][j] != nullptr)
+				file << bloques[i][j]->getColor() << " ";
+			else
+				file << "0" << " ";
+		}
+		file << endl;
+	}
+}
+
+void BlockMap::loadFromFile(ifstream& file) {
+	ArkanoidObject::loadFromFile(file);
+	leeMapa(file);
+
 }
 
 void BlockMap::render() {
@@ -55,9 +80,9 @@ BlockMap::~BlockMap() {
 
 }
 
-bool BlockMap::enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq) {
-	return ((pos.getX() >= posB.getX()) && (pos.getX() <= (posB.getX() + Wbloq)) && (pos.getY() >= posB.getY()) && (pos.getY() <= (posB.getY() + Hbloq)));
-}
+//bool BlockMap::enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq) {
+//	return ((pos.getX() >= posB.getX()) && (pos.getX() <= (posB.getX() + Wbloq)) && (pos.getY() >= posB.getY()) && (pos.getY() <= (posB.getY() + Hbloq)));
+//}
 
 /*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
 En caso de no haber bloque en ese punto (incluido el caso de que p esté fuera
@@ -66,7 +91,7 @@ del espacio del mapa) devuelve nullptr.
 Block* BlockMap::blockAt(const Vector2D& p) {
 	bool col = false;
 	Block* bloque = nullptr;
-	if ((p.getY() < ((WIN_HEIGHT) / 2) + anchoW) && p.getX() > anchoW && p.getX() < WIN_WIDTH - anchoW) {
+	if ((p.getY() < ((WIN_HEIGHT) / 2) + anchoW) && p.getX() > anchoW && p.getX() < WIN_WIDTH - anchoW -20) {
 		return bloques[(int)trunc(((p.getY() - anchoW) / (hB)))][(int)trunc(((p.getX() - anchoW) / (wB)))];
 	}
 	else return nullptr;

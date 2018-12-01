@@ -16,3 +16,5 @@ int Block::getF() { return this->fila; }
 int Block::getC() { return this->columna; }
 
 Vector2D Block::getPos() { return pos; }
+
+int Block::getColor() { return color; }

@@ -14,11 +14,15 @@ private:
 	uint dimx;
 	uint dimy;
 	int numbloques = 0;
-	bool enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq);
+	Texture* texture = nullptr;
+	//bool enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq);
+	void leeMapa(ifstream& file);
 
 public:
 	BlockMap(Texture* t, string archivo);
 	~BlockMap();
+	void saveToFile(ofstream& file);
+	void loadFromFile(ifstream& file);
 	virtual void render();
 	Block* collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);

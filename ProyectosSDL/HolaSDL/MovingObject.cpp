@@ -2,15 +2,19 @@
 
 using namespace std;
 
-void MovingObject::loadFromFile() {
-
+void MovingObject::loadFromFile(ifstream& file) {
+	double x, y;
+	file >> x >> y;
+	veldir = Vector2D(x, y);
+	ArkanoidObject::loadFromFile(file);
 }
-void MovingObject::saveToFile()
+void MovingObject::saveToFile(ofstream& file)
 {
-
+	file << veldir.getX() << " " << veldir.getY() << " ";
+	ArkanoidObject::saveToFile(file);
 }
-virtual void MovingObject::update()
+void MovingObject::update()
 {
-	//Movimiento pos + veldir
 	 pos =  pos + veldir;
+	 ArkanoidObject::update();
 }
