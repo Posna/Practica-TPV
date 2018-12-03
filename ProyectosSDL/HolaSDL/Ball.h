@@ -20,7 +20,7 @@ private:
 	Game* game;
 	
 
-	Texture* b = nullptr;
+	//Texture* b = nullptr;
 public:
 
 	Ball(Vector2D pos, uint w, uint h, Vector2D veldir, Texture* t, Game* game) :
@@ -32,6 +32,7 @@ public:
 	virtual void update();
 	virtual void handleEvents() {};
 	void coll();
+	void ballIni();
 	bool muerto();
 	SDL_Rect dimball();
 };

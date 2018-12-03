@@ -25,6 +25,10 @@ void Paddle::handleEvents(SDL_Event& event) {
 	}
 }
 
+void Paddle::cambTam(double cant) {
+	w = w * cant;
+}
+
 Vector2D Paddle::coll(SDL_Rect dimball, Vector2D vel) {
 	double paso1, paso2, paso3;
 	Vector2D centroinf = { (double)(dimball.x + dimball.w / 2), (double)(dimball.y + dimball.h) };

@@ -25,24 +25,23 @@ Game::Game() {
 
 	//Paddle
 	Vector2D posPaddle((WIN_WIDTH / 2), WIN_HEIGHT*0.75);
-	paddlecentro = new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]);
-	objetos.push_back(paddlecentro);
+	objetos.push_back(new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]));
 
 	//muro izq
-	objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
+	//objects[0] = new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT);
 	objetos.push_back(new Wall(origen, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro drch
 	Vector2D poswallright((WIN_WIDTH - anchoW), 0);
-	objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
+	//objects[1] = (new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 	objetos.push_back(new Wall(poswallright, texturas[SideText], anchoW, WIN_HEIGHT));
 
 	//muro arriba
-	objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
+	//objects[2] = (new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 	objetos.push_back(new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
-	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level01.ark");
+	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level1.ark", this);
 	objetos.push_back(mapa);
 
 	//Ball
@@ -55,15 +54,15 @@ Game::Game() {
 
 void Game::render(){
 	SDL_RenderClear(renderer);
-	for (ArkanoidObject* o: objetos)
+	for (it = objetos.begin(); it != objetos.end(); ++it)
 	{
-		o->render();
+		(*it)->render();
 	}
 	SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
-	for (ArkanoidObject* o : objetos)
+	for (ArkanoidObject* o: objetos)
 	{
 		o->update();
 	}
@@ -71,20 +70,21 @@ void Game::update() {
 	//objects[3]->update();
 }
 
-void Game::itMov(int num) {
-	it = objetos.begin();
-	for (int i = 0; i < num; i++) {
-		++it;
-	}
-}
+//Existe advance(iterator, numero de puestos)
+//void Game::itMov(int num) {
+//	it = objetos.begin();
+//	for (int i = 0; i < num; i++) {
+//		++it;
+//	}
+//}
 
 void Game::run() {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
-	while (numvidas > 0 && !exit && !mapa->nobloques()) {
+	while (numvidas > 0 && !exit && numMapa != MAX_MAPAS) {
 		cout << "Numero de vidas:" << numvidas << endl;
 		//preguntar sobre la pelota y la muerte de la misma
-		while (!exit && !mapa->nobloques() && hayBolas()) {
+		while (!exit && !mapa->nobloques() && hayBolas() && reward) {
 			handleEvents();
 			frameTime = SDL_GetTicks() - startTime; // Tiempo desde última actualización
 			if (frameTime >= FRAME_RATE) {
@@ -93,7 +93,13 @@ void Game::run() {
 			}
 			render();
 		}
-		numvidas--;
+		if(!hayBolas())
+			numvidas--;
+		if(mapa->nobloques()) {
+			numMapa++;
+			cargaNumMapa();
+		}
+		reward = true;
 	}
 	if (numvidas == 0) {
 		cout << "Has Muerto" << endl;
@@ -106,7 +112,7 @@ void Game::handleEvents() {
 	//saveGame("prueba");
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT) exit = true;
-		paddlecentro->handleEvents(event);
+		static_cast<Paddle*>(objetos.front())->handleEvents(event);
 		if (event.key.keysym.sym == SDLK_s)
 			saveGame("prueba");
 		if (event.key.keysym.sym == SDLK_r)
@@ -115,9 +121,12 @@ void Game::handleEvents() {
 }
 
 void Game::saveGame(string name) {
+	cout << "Escribe el nombre de la partida: ";
+	cin >> name;
 	it = objetos.begin();
 	ofstream archivo;
 	archivo.open(name + ".txt");
+	archivo << numMapa << endl;
 	for (ArkanoidObject* o : objetos) {
 		o->saveToFile(archivo);
 	}
@@ -129,6 +138,7 @@ void Game::loadGame(string name) {
 	it = objetos.begin();
 	ifstream archivo;
 	archivo.open(name + ".txt");
+	archivo >> numMapa;
 	for (ArkanoidObject* o : objetos) {
 		o->loadFromFile(archivo);
 	}
@@ -154,6 +164,23 @@ int Game::CollDead(SDL_Rect p) {
 	}
 }
 
+void Game::eliminaObj(std::list<ArkanoidObject*>::iterator iterator) {
+	//delete *iterator;
+	//objetos.erase(iterator);
+	objetos.remove(*iterator);
+}
+
+void Game::cargaNumMapa() {
+	char mapanum = numMapa + '0';
+	string a = MAPAS + mapanum + ".ark";
+	ifstream fich(a);
+	mapa->leeMapa(fich);
+	fich.close();
+	it = objetos.begin();
+	advance(it, 5);
+	static_cast<Ball*>(*it)->ballIni();
+}
+
 Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col = { 0,0 };
 	int i = 0;
@@ -174,21 +201,47 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 		mapa->destroyblock(bloque);
 	}
 	else{
-		col = paddlecentro->coll(dimball, vel);
+		col = static_cast<Paddle*>(objetos.front())->coll(dimball, vel);
 	}
 	if (col.getX() == 0 && col.getY() == 0)
 		col = wallColl(dimball, vel);
 	return col;
 }
 
+void Game::crearReward(Vector2D pos) {
+	objetos.push_back(new Reward(pos, ballAA * 2.5, ballAA, texturas[RewardText], this));
+	it = objetos.begin();
+	advance(it, (2 + numBolas + NUM_MUROS + numRewards));
+	static_cast<Reward*>(objetos.back())->addIt(it);	
+	numRewards++;
+}
+
+void Game::tipoReward(int i) {
+	if (i == 0) {
+		reward = false;
+		numMapa++;
+		cargaNumMapa();
+	}
+	else if (i == 1) {
+		static_cast<Paddle*>(objetos.front())->cambTam(5/2);
+	}
+	else if (i == 3) {
+		static_cast<Paddle*>(objetos.front())->cambTam(2/5);
+	}
+	else {
+		numvidas++;
+	}
+}
+
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
-	//for (int i = 0; i < 4; i++) { delete objects[i];}
-	for (ArkanoidObject* o : objetos)
-	{
-		delete o;
-	}
+	//for (int i = 0; i < NUM_MUROS; i++) { walls[i] = nullptr; }
 	//delete mapa;
+	/*for (it = objetos.begin(); it != objetos.end(); ++it)
+	{
+		delete (*it);
+	}*/
+	objetos.clear();
 	//delete paddlecentro;
 	//delete ballpaddle;
 

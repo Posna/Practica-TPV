@@ -2,6 +2,7 @@
 #ifndef MOVING_OBJECT
 #define MOVING_OBJECT
 #include "ArkanoidObject.h"
+#include "checkML.h"
 
 class MovingObject : public ArkanoidObject {
 protected:

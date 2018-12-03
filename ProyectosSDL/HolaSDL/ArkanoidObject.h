@@ -5,8 +5,10 @@
 #include "Vector2D.h"
 #include <iostream>
 #include <fstream>
+#include "checkML.h"
 #include <string>
 
+//const uint FRAME_RATE = 5;
 
 class ArkanoidObject : public GameObject {
 protected:
@@ -29,7 +31,9 @@ public:
 		fY = obj.fY;
 		t = obj.t;
 	}
-	~ArkanoidObject() {}
+	/*~ArkanoidObject() { delete t;
+	t = nullptr;
+	}*/
 	virtual void loadFromFile(ifstream& file);
 	virtual void saveToFile(ofstream& file);
 	virtual void render();

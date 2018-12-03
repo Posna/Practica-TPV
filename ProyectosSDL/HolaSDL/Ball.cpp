@@ -33,6 +33,10 @@ SDL_Rect Ball::dimball() {
 	return this->getRect();
 }
 
+void Ball::ballIni() {
+	pos = posini;
+}
+
 bool Ball::muerto() {
 	if (pos.getY() <= WIN_HEIGHT) {
 		return true;

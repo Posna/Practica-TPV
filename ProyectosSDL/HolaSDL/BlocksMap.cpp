@@ -3,22 +3,24 @@
 #include "Game.h"
 #include <fstream>
 #include <math.h>
+#include <stdlib.h>
 
 
-BlockMap::BlockMap(Texture* t, string archivo): ArkanoidObject(Vector2D(0, 0), nullptr, 0, 0, 0, 0) {
+BlockMap::BlockMap(Texture* t, string archivo, Game* game): ArkanoidObject(Vector2D(0, 0), nullptr, 0, 0, 0, 0), game(game) {
 	ifstream fich;
 	fich.open(archivo);
 	if (!fich.is_open()) {
 		cout << "No se encuentra el fichero " << archivo << endl;
 	}
 	else {
-		texture = t;
+		this->t = t;
 		leeMapa(fich);
 	}
 }
 
 void BlockMap::leeMapa(ifstream& file) {
 	int color;
+	numbloques = 0;
 	file >> dimy >> dimx;
 	wB = (WIN_WIDTH - (anchoW * 2)) / dimx;
 	hB = (WIN_HEIGHT / 2) / dimy;
@@ -32,7 +34,7 @@ void BlockMap::leeMapa(ifstream& file) {
 				bloques[i][j] = nullptr;
 			}
 			else {
-				bloques[i][j] = new Block(pos, color, i, j, texture, wB, hB);
+				bloques[i][j] = new Block(pos, color, i, j, this->t, wB, hB);
 				numbloques++;
 			}
 		}
@@ -51,11 +53,13 @@ void BlockMap::saveToFile(ofstream& file) {
 		}
 		file << endl;
 	}
+	file << numbloques << endl;
 }
 
 void BlockMap::loadFromFile(ifstream& file) {
 	ArkanoidObject::loadFromFile(file);
 	leeMapa(file);
+	file >> numbloques;
 
 }
 
@@ -68,10 +72,15 @@ void BlockMap::render() {
 	}
 }
 
+//void BlockMap::randomReward(Block* b) {
+//	game->crearReward(b.getPos());
+//}
+
 BlockMap::~BlockMap() {
 	for (int i = 0; i < dimy; i++) {
 		for (int j = 0; j < dimx; j++) {
-			delete bloques[i][j];
+			if(bloques[i][j] != nullptr)
+				delete bloques[i][j];
 		}
 		delete bloques[i];
 	}
@@ -155,11 +164,16 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 		}
 		else if ((b = blockAt(p0))) collVector = { 1,0 };
 	}
+	
 	return b;
 }
 
 void BlockMap::destroyblock(Block* bloq) {
 	numbloques--;
+	//srand(time(NULL));
+	if ((rand() % 1) == 0) {
+		game->crearReward(bloq->getPos());
+	}
 	int f = bloq->getF();
 	int c = bloq->getC();
 	delete bloques[f][c];
