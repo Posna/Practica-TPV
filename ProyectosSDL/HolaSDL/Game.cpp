@@ -24,7 +24,7 @@ Game::Game() {
 	}
 
 	//Paddle
-	Vector2D posPaddle((WIN_WIDTH / 2), WIN_HEIGHT*0.75);
+	Vector2D posPaddle((WIN_WIDTH / 2), WIN_HEIGHT*0.85);
 	objetos.push_back(new Paddle(posPaddle, largoP / 4, largoP, origen, texturas[PaddleText]));
 
 	//muro izq
@@ -50,6 +50,8 @@ Game::Game() {
 	objetos.push_back(new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this));
 	numBolas++;
 
+	
+
 }
 
 void Game::render(){
@@ -62,9 +64,12 @@ void Game::render(){
 }
 
 void Game::update() {
-	for (ArkanoidObject* o: objetos)
+	for (it = objetos.begin(); it != objetos.end();)
 	{
-		o->update();
+		auto next = it;
+		++next;
+		(*it)->update();
+		it = next;
 	}
 	//paddlecentro->update();
 	//objects[3]->update();
@@ -81,7 +86,7 @@ void Game::update() {
 void Game::run() {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
-	while (numvidas > 0 && !exit && numMapa != MAX_MAPAS) {
+	while (numvidas > 0 && !exit && numMapa != MAX_MAPAS+1) {
 		cout << "Numero de vidas:" << numvidas << endl;
 		//preguntar sobre la pelota y la muerte de la misma
 		while (!exit && !mapa->nobloques() && hayBolas() && reward) {
@@ -98,7 +103,8 @@ void Game::run() {
 		if(mapa->nobloques()) {
 			numMapa++;
 			cargaNumMapa();
-		}
+		}if(numrewards > 0)
+			eliminaRewards();
 		reward = true;
 	}
 	if (numvidas == 0) {
@@ -145,11 +151,22 @@ void Game::loadGame(string name) {
 	archivo.close();
 }
 
+void Game::eliminaRewards(){
+	it = objetos.begin();
+	
+	for (advance(it, 3 + NUM_MUROS); it != objetos.end(); ) {
+		//auto aux = it;
+		it = objetos.erase(it);
+	}
+	numRewards = 0;
+}
+
 //comprueba si en la lista hay alguna bola o no para poder continuar con el juego
 bool Game::hayBolas() {
 	return numBolas != 0;
 
 }
+
 
 //Comprueba si algun objeto(pelota o reward) esta por debajo o esta en colision con el paddle
 int Game::CollDead(SDL_Rect p) {
@@ -167,7 +184,10 @@ int Game::CollDead(SDL_Rect p) {
 void Game::eliminaObj(std::list<ArkanoidObject*>::iterator iterator) {
 	//delete *iterator;
 	//objetos.erase(iterator);
-	objetos.remove(*iterator);
+	it = iterator;
+	objetos.erase(it);
+	//delete *iterator;
+	numRewards--;
 }
 
 void Game::cargaNumMapa() {
@@ -208,12 +228,22 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 	return col;
 }
 
+void Game::ultimoreward() {
+	resetFirstReward();
+	advance(movObj, numRewards);
+}
+
+void Game::resetFirstReward() {
+	it = objetos.begin();
+	movObj = it;
+	advance(movObj, 2 + NUM_MUROS);
+}
+
 void Game::crearReward(Vector2D pos) {
 	objetos.push_back(new Reward(pos, ballAA * 2.5, ballAA, texturas[RewardText], this));
-	it = objetos.begin();
-	advance(it, (2 + numBolas + NUM_MUROS + numRewards));
-	static_cast<Reward*>(objetos.back())->addIt(it);	
 	numRewards++;
+	ultimoreward();
+	static_cast<Reward*>(objetos.back())->addIt(movObj);	
 }
 
 void Game::tipoReward(int i) {
@@ -223,10 +253,10 @@ void Game::tipoReward(int i) {
 		cargaNumMapa();
 	}
 	else if (i == 1) {
-		static_cast<Paddle*>(objetos.front())->cambTam(5/2);
+		static_cast<Paddle*>(objetos.front())->cambTam(2);
 	}
 	else if (i == 3) {
-		static_cast<Paddle*>(objetos.front())->cambTam(2/5);
+		static_cast<Paddle*>(objetos.front())->cambTam(0.5);
 	}
 	else {
 		numvidas++;

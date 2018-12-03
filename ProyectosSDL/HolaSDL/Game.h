@@ -39,7 +39,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	list<ArkanoidObject*> objetos;
 	std::list<ArkanoidObject*>::iterator it;
-	//std::list<ArkanoidObject*>::iterator movObj;
+	std::list<ArkanoidObject*>::iterator movObj;
 	//Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
 	//Paddle* paddlecentro = nullptr;
@@ -59,6 +59,8 @@ private:
 	TexturesAtributes atributos[NUM_TEXTURES] = { "ball.png", 1, 1, "paddle.png", 1, 1, "bricks.png", 2, 3, "side.png", 1, 1, "topside.png", 1, 1, "rewards.png", 10, 8};
 	void saveGame(string name);
 	void loadGame(string name);
+	void resetFirstReward();
+	void ultimoreward();
 	void itMov(int num);
 	bool hayBolas();
 public:
@@ -69,6 +71,7 @@ public:
 	void render();
 	void update();
 	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
+	void eliminaRewards();
 	void handleEvents();
 	Vector2D collides(SDL_Rect dimball, const Vector2D& vel);
 	void crearReward(Vector2D pos);

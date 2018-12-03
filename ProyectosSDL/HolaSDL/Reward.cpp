@@ -2,7 +2,7 @@
 #include "Game.h"
 
 void Reward::render() {
-	int a = (pos.getY() /20);
+	int a = (pos.getY()/20);
 	fX = a % t->getNumCols();
 	ArkanoidObject::render();
 }
