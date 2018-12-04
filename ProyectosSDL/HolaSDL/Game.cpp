@@ -57,6 +57,11 @@ Game::Game() {
 
 
 }
+//
+//
+// METODOS RELACIONADOS CON EL JUEGO
+//
+//
 
 void Game::render(){
 	SDL_RenderClear(renderer);
@@ -112,6 +117,7 @@ void Game::run() {
 
 }
 
+//muestra el menu del juego
 void Game::showmenu() {
 	bool fuera = false;
 	while (!fuera) {
@@ -132,6 +138,25 @@ void Game::showmenu() {
 	}
 }
 
+//carga el siguiente mapa que toque
+void Game::cargaNumMapa() {
+	char mapanum = numMapa + '0';
+	string a = MAPAS + mapanum + ".ark";
+	ifstream fich(a);
+	mapa->vaciaMapa();
+	mapa->leeMapa(fich);
+	fich.close();
+	it = objetos.begin();
+	advance(it, 5);
+	static_cast<Ball*>(*it)->ballIni();
+}
+
+
+void Game::muestraPuntuacion(int suma) {
+	puntuacion += suma;
+	cout << "Puntuacion: " << to_string(puntuacion) << endl;
+}
+
 
 void Game::handleEvents() {
 	SDL_Event event;
@@ -141,11 +166,6 @@ void Game::handleEvents() {
 		if (event.key.keysym.sym == SDLK_s)
 			saveGame();
 	}
-}
-
-void Game::resetBall() {
-	resetFirstReward();
-	static_cast<Ball*>(*movObj)->ballIni();
 }
 
 void Game::saveGame() {
@@ -182,11 +202,33 @@ void Game::loadGame(string name) {
 	}
 }
 
+//
+//
+// METODOS RELACIONADOS CON LA PELOTA
+//
+//
+
+void Game::resetBall() {
+	resetFirstReward();
+	static_cast<Ball*>(*movObj)->ballIni();
+}
+
+//comprueba si en la lista hay alguna bola o no para poder continuar con el juego
+bool Game::hayBolas() {
+	resetFirstReward();
+	return !static_cast<Ball*>(*movObj)->muerto();
+}
+
+//
+//
+// METODOS RELACIONADOS CON LOS REWARDS
+//
+//
+
 void Game::eliminaRewards(){
 	it = objetos.begin();
 	
 	for (advance(it, 3 + NUM_MUROS); it != objetos.end();) {
-		//auto aux = it;
 		rewardElimina.push_back(*it);
 		it = objetos.erase(it);
 	}
@@ -198,11 +240,62 @@ void Game::eliminaRewards(){
 	numRewards = 0;
 }
 
-//comprueba si en la lista hay alguna bola o no para poder continuar con el juego
-bool Game::hayBolas() {
-	resetFirstReward();
-	return !static_cast<Ball*>(*movObj)->muerto();
+//elimina un rewards de la lista principal y lo envia a la lista de ser eliminado
+void Game::eliminaObj(std::list<ArkanoidObject*>::iterator iterator) {
+	it = iterator;
+	rewardElimina.push_back(*iterator);
+	objetos.erase(it);
+	numRewards--;
 }
+
+//mueve un iterador a la posicion en la que se encuentra el ultimo reward
+void Game::ultimoreward() {
+	resetFirstReward();
+	advance(movObj, numRewards);
+}
+
+//mueve el iterador hasta la posicion del primer reward
+void Game::resetFirstReward() {
+	it = objetos.begin();
+	movObj = it;
+	advance(movObj, 2 + NUM_MUROS);
+}
+
+
+void Game::crearReward(Vector2D pos) {
+	objetos.push_back(new Reward(pos, ballAA * 2.5, ballAA, texturas[RewardText], this));
+	numRewards++;
+	ultimoreward();
+	static_cast<Reward*>(objetos.back())->addIt(movObj);
+}
+
+//segun un numero dado aleatoriamente cuando se crea el reward, se le asocia
+//una funcionalidad que se aplica cuando se llama a este metodo
+void Game::tipoReward(int i) {
+	static_cast<Paddle*>(objetos.front())->resetSize();
+	if (i == 0) {
+		reward = false;
+		numMapa++;
+		cargaNumMapa();
+	}
+	else if (i == 1) {
+		static_cast<Paddle*>(objetos.front())->cambTam(2);
+	}
+	else if (i == 3) {
+		static_cast<Paddle*>(objetos.front())->cambTam(0.5);
+	}
+	else if (i == 2){
+		numvidas++;
+		cout << "Numero de vidas:" << numvidas << endl;
+	}
+}
+
+//
+//
+// METODOS RELACIONADOS CON LAS COLISIONES
+//
+//
+
 
 
 //Comprueba si algun objeto(pelota o reward) esta por debajo o esta en colision con el paddle
@@ -218,43 +311,22 @@ int Game::CollDead(SDL_Rect p) {
 	}
 }
 
-void Game::eliminaObj(std::list<ArkanoidObject*>::iterator iterator) {
-	it = iterator;
-	rewardElimina.push_back(*iterator);
-	objetos.erase(it);
-	numRewards--;
-}
-
-void Game::cargaNumMapa() {
-	char mapanum = numMapa + '0';
-	string a = MAPAS + mapanum + ".ark";
-	ifstream fich(a);
-	mapa->vaciaMapa();
-	mapa->leeMapa(fich);
-	fich.close();
-	it = objetos.begin();
-	advance(it, 5);
-	static_cast<Ball*>(*it)->ballIni();
-}
-
+//comprueba la colision con los muros
 Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col = { 0,0 };
 	int i = 0;
 	it = objetos.begin();
 	++it;
 	while(col.getX() == 0 && col.getY() == 0 && i < NUM_MUROS) {
-		col = static_cast<Wall*>(*it)->collWall(dimball, vel); //cambiar este array por un iterador que apunte al primer muro y siga hasta el ultimo (NUM_MUROS)
+		col = static_cast<Wall*>(*it)->collWall(dimball, vel); 
 		i++;
 		++it;
 	}
 	return col;
 }
 
-void Game::muestraPuntuacion(int suma) {
-	puntuacion += suma;
-	cout << "Puntuacion: " << to_string(puntuacion) << endl;
-}
-
+//comprueba la colision de la bola con cualquier otro objeto y devuelve un 
+//vector con el cual se hara una reflexion
 Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
@@ -273,49 +345,11 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 	return col;
 }
 
-void Game::ultimoreward() {
-	resetFirstReward();
-	advance(movObj, numRewards);
-}
 
-void Game::resetFirstReward() {
-	it = objetos.begin();
-	movObj = it;
-	advance(movObj, 2 + NUM_MUROS);
-}
 
-void Game::crearReward(Vector2D pos) {
-	objetos.push_back(new Reward(pos, ballAA * 2.5, ballAA, texturas[RewardText], this));
-	numRewards++;
-	ultimoreward();
-	static_cast<Reward*>(objetos.back())->addIt(movObj);	
-}
-
-void Game::tipoReward(int i) {
-	static_cast<Paddle*>(objetos.front())->resetSize();
-	if (i == 0) {
-		reward = false;
-		numMapa++;
-		cargaNumMapa();
-	}
-	else if (i == 1) {
-		static_cast<Paddle*>(objetos.front())->cambTam(2);
-	}
-	else if (i == 3) {
-		static_cast<Paddle*>(objetos.front())->cambTam(0.5);
-	}
-	else {
-		numvidas++;
-		cout << "Numero de vidas:" << numvidas << endl;
-	}
-}
 
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
-	//for (int i = 0; i < NUM_MUROS; i++) { walls[i] = nullptr; }
-	//delete mapa;
-	//mapa = nullptr;
-	//auto next = it;*/
 	for (it = objetos.begin(); it!=objetos.end();it++)
 	{
 		delete (*it);
@@ -325,13 +359,8 @@ Game::~Game() {
 		delete (*it);
 	}
 
-	
-	
-	//objetos.clear();
 	delete start;
 	delete load;
-	//delete paddlecentro;
-	//delete ballpaddle;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

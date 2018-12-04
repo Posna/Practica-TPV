@@ -16,22 +16,21 @@ private:
 	uint dimy;
 	Game* game = nullptr;
 	int numbloques = 0;
-	//Texture* texture = nullptr;
-	//bool enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq);
-
 public:
 	BlockMap(Texture* t, string archivo, Game* game);
 	~BlockMap();
+	virtual void render();
+
 	void leeMapa(ifstream& file); 
 	void vaciaMapa();
 	void saveToFile(ofstream& file);
 	void loadFromFile(ifstream& file);
-	virtual void render();
+	void destroyblock(Block* bloq);	
+
 	Block* collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);
-	void randomReward(Block* b);
+
 	//controla cuando para de haber bloque para(se llama en el while del juego)
 	bool nobloques();
-	void destroyblock(Block* bloq);	
 };
 #endif

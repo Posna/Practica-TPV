@@ -12,7 +12,6 @@ const int velocity = 2;
 
 class Paddle: public MovingObject {
 private:
-	//Texture* p = nullptr;
 	uint wini;
 	bool enPaddle = false; //false si la pelota no esta dentro del paddle
 public:

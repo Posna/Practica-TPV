@@ -5,17 +5,12 @@
 
 using namespace std;
 
-//void Ball::render() {
-//	this->t->render(getRect());
-//}
 
 void Ball::coll() {
 	Vector2D norm = { 0,0 };
 	norm = game->collides(dimball(), veldir);
 	norm.normaliza();
 	veldir = veldir - (norm * 2 * (norm*veldir));
-	//veldir.normaliza();
-	//veldir = veldir * 2;
 }
 
 void Ball::update() {
@@ -24,20 +19,16 @@ void Ball::update() {
 }
 
 SDL_Rect Ball::dimball() {
-	/*SDL_Rect destRect;
-	destRect.w = anch;
-	destRect.h = alt;
-	destRect.x = pos.getX();
-	destRect.y = pos.getY();
-	return destRect;*/
 	return this->getRect();
 }
 
+//devulve la pelota a su posicion y velocidad inicial
 void Ball::ballIni() {
 	pos = posini;
 	veldir = veldirini;
 }
 
+//comprueba si la pelota esta por debajo para morir
 bool Ball::muerto() {
 	return game->CollDead(getRect()) == 2;
 }

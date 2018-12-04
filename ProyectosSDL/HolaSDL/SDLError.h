@@ -4,7 +4,7 @@
 class SDLError: public ArkanoidError
 {
 public:
-	//const char* SDL_GetError() { return "Error en libreria SDL"; }
-	//const char* IMG_GetError() { return "Error sobre imagen"; }
+	const char* SDLGetError() { return "Error en libreria SDL"; }
+	const char* IMGGetError() { return "Error sobre imagen"; }
 	SDLError(const string& m) : ArkanoidError(m) {};
 };

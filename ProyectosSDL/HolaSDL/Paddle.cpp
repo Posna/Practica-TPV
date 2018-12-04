@@ -25,6 +25,7 @@ void Paddle::handleEvents(SDL_Event& event) {
 	}
 }
 
+//cambia el tamaño del paddle segun el reward que coja
 void Paddle::cambTam(double cant) {
 	w = w * cant;
 	if (pos.getX() + w >= WIN_WIDTH - anchoW) {
@@ -33,6 +34,7 @@ void Paddle::cambTam(double cant) {
 		
 }
 
+//se resetea el tamaño del paddle cuando coje otro reward
 void Paddle::resetSize() {
 	w = wini;
 }

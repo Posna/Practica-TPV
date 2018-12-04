@@ -72,7 +72,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlocksMap.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MovingObject.cpp" />

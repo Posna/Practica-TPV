@@ -27,5 +27,4 @@ public:
 
 	void col();
 	void efecto();
-	void killObject();
 };

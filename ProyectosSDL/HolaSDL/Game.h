@@ -40,25 +40,25 @@ const int MAX_MAPAS = 3;
 class Game {
 private:
 	int numvidas = 3;
-	SDL_Window * window = nullptr;
-	SDL_Renderer* renderer = nullptr;
-	list<ArkanoidObject*> objetos;
-	list<ArkanoidObject*> rewardElimina;
-	std::list<ArkanoidObject*>::iterator it;
-	std::list<ArkanoidObject*>::iterator movObj;
-	//Wall* walls [NUM_MUROS];
-	BlockMap* mapa = nullptr;
-	//Paddle* paddlecentro = nullptr;
-	//Ball* ballpaddle = nullptr;
-	Button* start;
-	Button* load;
 	bool exit = false;
 	bool reward = true;
-	//ArkanoidObject* objects [15];
 	int numBolas = 0;
 	int numRewards = 0;
 	int numMapa = 1;
 	int puntuacion = 0;
+
+	SDL_Window * window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+
+	list<ArkanoidObject*> objetos;
+	list<ArkanoidObject*> rewardElimina;
+
+	std::list<ArkanoidObject*>::iterator it;
+	std::list<ArkanoidObject*>::iterator movObj;
+	BlockMap* mapa = nullptr;
+
+	Button* start;
+	Button* load;
 	struct TexturesAtributes {
 		string nombre;
 		int row;
@@ -68,26 +68,30 @@ private:
 	TexturesAtributes atributos[NUM_TEXTURES] = { "ball.png", 1, 1, "paddle.png", 1, 1, "bricks.png", 2, 3, "side.png", 1, 1, "topside.png", 1, 1, "rewards.png", 10, 8, "Load_Game_Sprite.png", 1, 1, "Start_Game_Sprite.png", 1, 1};
 	void saveGame();
 	void loadGame(string name);
+
 	void resetFirstReward();
 	void ultimoreward();
+
 	void resetBall();
 	bool hayBolas();
 public:
 	Game();
 	~Game();
-	int CollDead(SDL_Rect p);
 	void run();
 	void showmenu();// , TTF_Font* font);
 	void render();
 	void update();
-	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
-	void eliminaRewards();
 	void muestraPuntuacion(int suma);
-	void handleEvents();
-	Vector2D collides(SDL_Rect dimball, const Vector2D& vel);
-	void crearReward(Vector2D pos);
 	void cargaNumMapa();
-	void eliminaObj(std::list<ArkanoidObject*>::iterator iterator);
+
+	int CollDead(SDL_Rect p);
+	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
+	Vector2D collides(SDL_Rect dimball, const Vector2D& vel);
+
+	void eliminaRewards();
 	void tipoReward(int i);
+	void handleEvents();
+	void crearReward(Vector2D pos);
+	void eliminaObj(std::list<ArkanoidObject*>::iterator iterator);
 };
 #endif

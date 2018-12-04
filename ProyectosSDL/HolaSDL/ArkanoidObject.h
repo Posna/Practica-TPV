@@ -8,7 +8,6 @@
 #include "checkML.h"
 #include <string>
 
-//const uint FRAME_RATE = 5;
 
 class ArkanoidObject : public GameObject {
 protected:
@@ -31,9 +30,6 @@ public:
 		fY = obj.fY;
 		t = obj.t;
 	}
-	/*~ArkanoidObject() { delete t;
-	t = nullptr;
-	}*/
 	virtual ~ArkanoidObject() {}
 	virtual void loadFromFile(ifstream& file);
 	virtual void saveToFile(ofstream& file);

@@ -1,7 +1,6 @@
 #include "MenuButton.h"
 
 bool Button::clicked() {
-	//saveGame("prueba");
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		if (event.type == SDL_MOUSEBUTTONDOWN) {

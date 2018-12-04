@@ -8,9 +8,6 @@
 typedef unsigned int uint;
 
 class GameObject {
-private:
-
-
 public:
 	virtual void render() = 0;
 	virtual void update() = 0;
