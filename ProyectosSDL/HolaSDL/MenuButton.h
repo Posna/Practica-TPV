@@ -1,21 +1,16 @@
-//#pragma once
-//#include "SDL.h"
-//#include "SDL_image.h"
-//#include "GameObject.h"
-//
-//class MenuButton : public GameObject
-//{
-//private:
-//	enum button_state
-//	{
-//		MOUSE_OUT = 0,
-//		MOUSE_OVER = 1,
-//		CLICKED = 2
-//	};
-//
-//public:
-//	MenuButton(const LoaderParams* pParams);
-//	virtual void draw();
-//	virtual void update();
-//	virtual void clean();
-//};
+#include "SDL.h"
+#include "SDL_image.h"
+#include "ArkanoidObject.h"
+#include "Vector2D.h"
+
+class Button: public ArkanoidObject
+{
+private:
+	
+public:
+	//Initialize the variables
+	Button(Vector2D pos, Texture* t, uint w, uint h, uint fX, uint fY) : ArkanoidObject(pos, t, w, h, fX, fY) {}
+
+
+	bool clicked();
+};

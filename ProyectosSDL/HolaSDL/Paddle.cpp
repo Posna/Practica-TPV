@@ -27,6 +27,14 @@ void Paddle::handleEvents(SDL_Event& event) {
 
 void Paddle::cambTam(double cant) {
 	w = w * cant;
+	if (pos.getX() + w >= WIN_WIDTH - anchoW) {
+		pos = Vector2D(pos.getX() - (WIN_WIDTH - anchoW - (pos.getX() + w)), pos.getY());
+	}
+		
+}
+
+void Paddle::resetSize() {
+	w = wini;
 }
 
 Vector2D Paddle::coll(SDL_Rect dimball, Vector2D vel) {

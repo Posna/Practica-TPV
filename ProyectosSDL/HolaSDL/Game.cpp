@@ -11,7 +11,7 @@ Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
+	if (window == nullptr || renderer == nullptr) throw SDLError("Error loading the SDL window or renderer");
 
 	try {
 		//Inicializacion de las texturas
@@ -19,8 +19,8 @@ Game::Game() {
 			texturas[i] = new Texture(renderer, (RUTA + atributos[i].nombre), atributos[i].row, atributos[i].col);
 		}
 	}
-	catch(exception e){
-		cout << "Fichero de imagen no encontrado";
+	catch(FileNotFounError& e){
+		cout << e.what() << endl;
 	}
 
 	//Paddle
@@ -50,7 +50,11 @@ Game::Game() {
 	objetos.push_back(new Ball(posBall, ballAA, ballAA, Vector2D(0, -1), texturas[BallText], this));
 	numBolas++;
 
-	
+	//Buttons
+	int w = 300; int h = 100;
+	start = new Button(Vector2D((WIN_WIDTH / 2) - (w / 2), WIN_HEIGHT / 3), texturas[StartText], w, h, 0, 0);
+	load = new Button(Vector2D((WIN_WIDTH / 2) - (w / 2), WIN_HEIGHT * 2 / 3), texturas[LoadText], w, h, 0, 0);
+
 
 }
 
@@ -71,17 +75,7 @@ void Game::update() {
 		(*it)->update();
 		it = next;
 	}
-	//paddlecentro->update();
-	//objects[3]->update();
 }
-
-//Existe advance(iterator, numero de puestos)
-//void Game::itMov(int num) {
-//	it = objetos.begin();
-//	for (int i = 0; i < num; i++) {
-//		++it;
-//	}
-//}
 
 void Game::run() {
 	uint32_t startTime, frameTime;
@@ -108,6 +102,7 @@ void Game::run() {
 			resetBall();
 		}if(numrewards > 0)
 			eliminaRewards();
+		static_cast<Paddle*>(objetos.front())->resetSize();
 		reward = true;
 	}
 	if (numvidas == 0) {
@@ -116,16 +111,35 @@ void Game::run() {
 
 }
 
+void Game::showmenu() {
+	bool fuera = false;
+	//SDL_Event event;
+	while (!fuera) {
+		SDL_RenderClear(renderer);
+		start->render();
+		load->render();
+		SDL_RenderPresent(renderer);
+		if (start->clicked()) {
+			fuera = true;
+		}
+		if (load->clicked()) {
+			string name;
+			cout << "Nombre de la partida: ";
+			cin >> name;
+			loadGame(name);
+			fuera = true;
+		}
+	}
+}
+
+
 void Game::handleEvents() {
 	SDL_Event event;
-	//saveGame("prueba");
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT) exit = true;
 		static_cast<Paddle*>(objetos.front())->handleEvents(event);
 		if (event.key.keysym.sym == SDLK_s)
-			saveGame("prueba");
-		if (event.key.keysym.sym == SDLK_r)
-			loadGame("prueba");
+			saveGame();
 	}
 }
 
@@ -134,7 +148,8 @@ void Game::resetBall() {
 	static_cast<Ball*>(*movObj)->ballIni();
 }
 
-void Game::saveGame(string name) {
+void Game::saveGame() {
+	string name;
 	cout << "Escribe el nombre de la partida: ";
 	cin >> name;
 	it = objetos.begin();
@@ -144,7 +159,6 @@ void Game::saveGame(string name) {
 	for (ArkanoidObject* o : objetos) {
 		o->saveToFile(archivo);
 	}
-	//mapa->saveToFile(archivo);
 	archivo.close();
 }
 
@@ -152,11 +166,19 @@ void Game::loadGame(string name) {
 	it = objetos.begin();
 	ifstream archivo;
 	archivo.open(name + ".txt");
-	archivo >> numMapa;
-	for (ArkanoidObject* o : objetos) {
-		o->loadFromFile(archivo);
+	try {
+		if (!archivo.is_open()) {
+			throw FileNotFounError(name);
+		}
+		archivo >> numMapa;
+		for (ArkanoidObject* o : objetos) {
+			o->loadFromFile(archivo);
+		}
 	}
-	archivo.close();
+	catch(FileNotFounError& e){
+		cout << e.what() << endl;
+		archivo.close();
+	}
 }
 
 void Game::eliminaRewards(){
@@ -258,6 +280,7 @@ void Game::crearReward(Vector2D pos) {
 }
 
 void Game::tipoReward(int i) {
+	static_cast<Paddle*>(objetos.front())->resetSize();
 	if (i == 0) {
 		reward = false;
 		numMapa++;
@@ -271,18 +294,25 @@ void Game::tipoReward(int i) {
 	}
 	else {
 		numvidas++;
+		cout << "Numero de vidas:" << numvidas << endl;
 	}
 }
 
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
 	//for (int i = 0; i < NUM_MUROS; i++) { walls[i] = nullptr; }
-	//delete mapa;
-	/*for (it = objetos.begin(); it != objetos.end(); ++it)
+	delete mapa;
+	//auto next = it;
+	/*for (it = objetos.begin(); next != objetos.end();)
 	{
+		next = it;
+		++next;
 		delete (*it);
+		it = next;
 	}*/
 	objetos.clear();
+	delete start;
+	delete load;
 	//delete paddlecentro;
 	//delete ballpaddle;
 

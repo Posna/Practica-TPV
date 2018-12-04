@@ -9,13 +9,13 @@ c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyec
 c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(80): warning C4018: '<': no coinciden signed/unsigned
 c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\blocksmap.cpp(81): warning C4018: '<': no coinciden signed/unsigned
   Game.cpp
-c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\game.cpp(254): warning C4244: 'argumento': conversión de 'double' a 'uint'; posible pérdida de datos
+c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\game.cpp(276): warning C4244: 'argumento': conversión de 'double' a 'uint'; posible pérdida de datos
+  main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': redefinición de macro
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: vea la definición anterior de '_malloca'
   Paddle.cpp
 c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\paddle.cpp(29): warning C4244: '=': conversión de 'double' a 'uint'; posible pérdida de datos
   Reward.cpp
 c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica\practica-tpv\proyectossdl\holasdl\reward.cpp(5): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
-  main.cpp
-c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': redefinición de macro
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: vea la definición anterior de '_malloca'
   Generando código...
   HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
