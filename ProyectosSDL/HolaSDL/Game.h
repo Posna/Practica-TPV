@@ -45,15 +45,11 @@ private:
 	list<ArkanoidObject*> objetos;
 	std::list<ArkanoidObject*>::iterator it;
 	std::list<ArkanoidObject*>::iterator movObj;
-	//Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
-	//Paddle* paddlecentro = nullptr;
-	//Ball* ballpaddle = nullptr;
 	Button* start;
 	Button* load;
 	bool exit = false;
 	bool reward = true;
-	//ArkanoidObject* objects [15];
 	int numBolas = 0;
 	int numRewards = 0;
 	int numMapa = 1;

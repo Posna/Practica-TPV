@@ -12,7 +12,7 @@ BlockMap::BlockMap(Texture* t, string archivo, Game* game): ArkanoidObject(Vecto
 	fich.open(archivo);
 	if (!fich.is_open()) {
 		throw FileNotFoundError(archivo);
-		//cout << "No se encuentra el fichero " << archivo << endl;
+		
 	}
 	else {
 		this->t = t;
@@ -74,19 +74,15 @@ void BlockMap::render() {
 	}
 }
 
-//void BlockMap::randomReward(Block* b) {
-//	game->crearReward(b.getPos());
-//}
-
 BlockMap::~BlockMap() {
 	for (int i = 0; i < dimy; i++) {
 		for (int j = 0; j < dimx; j++) {
 			if(bloques[i][j] != nullptr)
 				delete bloques[i][j];
 		}
-		delete bloques[i];
+		delete [] bloques[i];
 	}
-	delete bloques;
+	delete [] bloques;
 	bloques = nullptr;
 }
 
@@ -167,7 +163,6 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 
 void BlockMap::destroyblock(Block* bloq) {
 	numbloques--;
-	//srand(time(NULL));
 	int f = bloq->getF();
 	int c = bloq->getC();
 	delete bloques[f][c];
