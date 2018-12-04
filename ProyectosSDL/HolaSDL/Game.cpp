@@ -19,7 +19,7 @@ Game::Game() {
 			texturas[i] = new Texture(renderer, (RUTA + atributos[i].nombre), atributos[i].row, atributos[i].col);
 		}
 	}
-	catch(FileNotFounError& e){
+	catch(FileNotFoundError& e){
 		cout << e.what() << endl;
 	}
 
@@ -41,7 +41,7 @@ Game::Game() {
 	objetos.push_back(new Wall(origen, texturas[TopsideText], WIN_WIDTH, anchoW));
 
 	//mapa de bloques
-	mapa = new BlockMap(texturas[BricksText], "..\\mapas\\level1.ark", this);
+	mapa = new BlockMap(texturas[BricksText], (MAPAS + to_string(numMapa) + ".ark"), this);
 	objetos.push_back(mapa);
 
 	//Ball
@@ -100,6 +100,7 @@ void Game::run() {
 			numMapa++;
 			cargaNumMapa();
 			resetBall();
+			muestraPuntuacion(100);
 		}if(numrewards > 0)
 			eliminaRewards();
 		static_cast<Paddle*>(objetos.front())->resetSize();
@@ -168,14 +169,14 @@ void Game::loadGame(string name) {
 	archivo.open(name + ".txt");
 	try {
 		if (!archivo.is_open()) {
-			throw FileNotFounError(name);
+			throw FileNotFoundError(name);
 		}
 		archivo >> numMapa;
 		for (ArkanoidObject* o : objetos) {
 			o->loadFromFile(archivo);
 		}
 	}
-	catch(FileNotFounError& e){
+	catch(FileNotFoundError& e){
 		cout << e.what() << endl;
 		archivo.close();
 	}
@@ -244,6 +245,11 @@ Vector2D Game::wallColl(SDL_Rect dimball, const Vector2D& vel) {
 	return col;
 }
 
+void Game::muestraPuntuacion(int suma) {
+	puntuacion += suma;
+	cout << "Puntuacion: " << to_string(puntuacion) << endl;
+}
+
 Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
@@ -251,6 +257,7 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 		if ((rand() % 100) < PROB_REWARD) {
 			crearReward(bloque->getPos());
 		}
+		muestraPuntuacion(10);
 		mapa->destroyblock(bloque);
 	}
 	else{
@@ -301,15 +308,14 @@ void Game::tipoReward(int i) {
 Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
 	//for (int i = 0; i < NUM_MUROS; i++) { walls[i] = nullptr; }
-	delete mapa;
-	//auto next = it;
-	/*for (it = objetos.begin(); next != objetos.end();)
+	//delete mapa;
+	/*mapa = nullptr;
+	auto next = it;*/
+	for (ArkanoidObject* o: objetos)
 	{
-		next = it;
-		++next;
-		delete (*it);
-		it = next;
-	}*/
+		delete o;
+	}
+	
 	objetos.clear();
 	delete start;
 	delete load;

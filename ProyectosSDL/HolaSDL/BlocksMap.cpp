@@ -4,13 +4,15 @@
 #include <fstream>
 #include <math.h>
 #include <stdlib.h>
+#include "FileNotFoundError.h"
 
 
 BlockMap::BlockMap(Texture* t, string archivo, Game* game): ArkanoidObject(Vector2D(0, 0), nullptr, 0, 0, 0, 0), game(game) {
 	ifstream fich;
 	fich.open(archivo);
 	if (!fich.is_open()) {
-		cout << "No se encuentra el fichero " << archivo << endl;
+		throw FileNotFoundError(archivo);
+		//cout << "No se encuentra el fichero " << archivo << endl;
 	}
 	else {
 		this->t = t;
@@ -86,7 +88,6 @@ BlockMap::~BlockMap() {
 	}
 	delete bloques;
 	bloques = nullptr;
-
 }
 
 /*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.

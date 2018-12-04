@@ -28,7 +28,7 @@ void Paddle::handleEvents(SDL_Event& event) {
 void Paddle::cambTam(double cant) {
 	w = w * cant;
 	if (pos.getX() + w >= WIN_WIDTH - anchoW) {
-		pos = Vector2D(pos.getX() - (WIN_WIDTH - anchoW - (pos.getX() + w)), pos.getY());
+		pos = Vector2D(pos.getX() - ((pos.getX() + w) - (WIN_WIDTH - anchoW)), pos.getY());
 	}
 		
 }

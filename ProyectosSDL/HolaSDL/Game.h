@@ -57,6 +57,7 @@ private:
 	int numBolas = 0;
 	int numRewards = 0;
 	int numMapa = 1;
+	int puntuacion = 0;
 	struct TexturesAtributes {
 		string nombre;
 		int row;
@@ -69,9 +70,7 @@ private:
 	void resetFirstReward();
 	void ultimoreward();
 	void resetBall();
-	void itMov(int num);
 	bool hayBolas();
-	int existsFile(string filename);
 public:
 	Game();
 	~Game();
@@ -82,6 +81,7 @@ public:
 	void update();
 	Vector2D wallColl(SDL_Rect dimball, const Vector2D& vel);
 	void eliminaRewards();
+	void muestraPuntuacion(int suma);
 	void handleEvents();
 	Vector2D collides(SDL_Rect dimball, const Vector2D& vel);
 	void crearReward(Vector2D pos);
