@@ -34,6 +34,7 @@ public:
 	/*~ArkanoidObject() { delete t;
 	t = nullptr;
 	}*/
+	virtual ~ArkanoidObject() {}
 	virtual void loadFromFile(ifstream& file);
 	virtual void saveToFile(ofstream& file);
 	virtual void render();

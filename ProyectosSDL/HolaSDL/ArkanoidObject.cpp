@@ -10,6 +10,8 @@ void ArkanoidObject::loadFromFile(ifstream& file) {
 }
 
 void ArkanoidObject::saveToFile(ofstream& file) {
+	//int a = (int)(pos.getX());
+	//cout << a << endl;
 	file << (int)(pos.getX()) << " " << (int)(pos.getY()) << " " << w << " " << h << endl;
 }
 

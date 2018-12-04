@@ -114,7 +114,6 @@ void Game::run() {
 
 void Game::showmenu() {
 	bool fuera = false;
-	//SDL_Event event;
 	while (!fuera) {
 		SDL_RenderClear(renderer);
 		start->render();
@@ -156,7 +155,7 @@ void Game::saveGame() {
 	it = objetos.begin();
 	ofstream archivo;
 	archivo.open(name + ".txt");
-	archivo << numMapa << endl;
+	archivo << numMapa << " " << puntuacion << endl;
 	for (ArkanoidObject* o : objetos) {
 		o->saveToFile(archivo);
 	}
@@ -165,13 +164,14 @@ void Game::saveGame() {
 
 void Game::loadGame(string name) {
 	it = objetos.begin();
+	mapa->vaciaMapa();
 	ifstream archivo;
 	archivo.open(name + ".txt");
 	try {
 		if (!archivo.is_open()) {
 			throw FileNotFoundError(name);
 		}
-		archivo >> numMapa;
+		archivo >> numMapa >> puntuacion;
 		for (ArkanoidObject* o : objetos) {
 			o->loadFromFile(archivo);
 		}
@@ -185,10 +185,16 @@ void Game::loadGame(string name) {
 void Game::eliminaRewards(){
 	it = objetos.begin();
 	
-	for (advance(it, 3 + NUM_MUROS); it != objetos.end(); ) {
+	for (advance(it, 3 + NUM_MUROS); it != objetos.end();) {
 		//auto aux = it;
+		rewardElimina.push_back(*it);
 		it = objetos.erase(it);
 	}
+	for (ArkanoidObject* o : rewardElimina)
+	{
+		delete o;
+	}
+	rewardElimina.clear();
 	numRewards = 0;
 }
 
@@ -213,11 +219,9 @@ int Game::CollDead(SDL_Rect p) {
 }
 
 void Game::eliminaObj(std::list<ArkanoidObject*>::iterator iterator) {
-	//delete *iterator;
-	//objetos.erase(iterator);
 	it = iterator;
+	rewardElimina.push_back(*iterator);
 	objetos.erase(it);
-	//delete *iterator;
 	numRewards--;
 }
 
@@ -225,6 +229,7 @@ void Game::cargaNumMapa() {
 	char mapanum = numMapa + '0';
 	string a = MAPAS + mapanum + ".ark";
 	ifstream fich(a);
+	mapa->vaciaMapa();
 	mapa->leeMapa(fich);
 	fich.close();
 	it = objetos.begin();
@@ -309,14 +314,20 @@ Game::~Game() {
 	for (int i = 0; i < NUM_TEXTURES; i++) {delete texturas[i];}
 	//for (int i = 0; i < NUM_MUROS; i++) { walls[i] = nullptr; }
 	//delete mapa;
-	/*mapa = nullptr;
-	auto next = it;*/
-	for (ArkanoidObject* o: objetos)
+	//mapa = nullptr;
+	//auto next = it;*/
+	for (it = objetos.begin(); it!=objetos.end();it++)
 	{
-		delete o;
+		delete (*it);
 	}
+	for (it = rewardElimina.begin(); it != rewardElimina.end(); it++)
+	{
+		delete (*it);
+	}
+
 	
-	objetos.clear();
+	
+	//objetos.clear();
 	delete start;
 	delete load;
 	//delete paddlecentro;

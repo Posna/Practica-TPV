@@ -32,7 +32,7 @@ const uint32_t FRAME_RATE = 5;
 const uint ballAA = 18;
 const uint largoP = 100;
 const int NUM_MUROS = 3;
-const int PROB_REWARD = 20;
+const int PROB_REWARD = 100;
 const int MAX_MAPAS = 3;
 
 
@@ -43,13 +43,18 @@ private:
 	SDL_Window * window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	list<ArkanoidObject*> objetos;
+	list<ArkanoidObject*> rewardElimina;
 	std::list<ArkanoidObject*>::iterator it;
 	std::list<ArkanoidObject*>::iterator movObj;
+	//Wall* walls [NUM_MUROS];
 	BlockMap* mapa = nullptr;
+	//Paddle* paddlecentro = nullptr;
+	//Ball* ballpaddle = nullptr;
 	Button* start;
 	Button* load;
 	bool exit = false;
 	bool reward = true;
+	//ArkanoidObject* objects [15];
 	int numBolas = 0;
 	int numRewards = 0;
 	int numMapa = 1;
