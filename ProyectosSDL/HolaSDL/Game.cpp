@@ -98,11 +98,14 @@ void Game::run() {
 			}
 			render();
 		}
-		if(!hayBolas())
+		if (!hayBolas()) {
 			numvidas--;
+			resetBall();
+		}
 		if(mapa->nobloques()) {
 			numMapa++;
 			cargaNumMapa();
+			resetBall();
 		}if(numrewards > 0)
 			eliminaRewards();
 		reward = true;
@@ -124,6 +127,11 @@ void Game::handleEvents() {
 		if (event.key.keysym.sym == SDLK_r)
 			loadGame("prueba");
 	}
+}
+
+void Game::resetBall() {
+	resetFirstReward();
+	static_cast<Ball*>(*movObj)->ballIni();
 }
 
 void Game::saveGame(string name) {
@@ -163,8 +171,8 @@ void Game::eliminaRewards(){
 
 //comprueba si en la lista hay alguna bola o no para poder continuar con el juego
 bool Game::hayBolas() {
-	return numBolas != 0;
-
+	resetFirstReward();
+	return !static_cast<Ball*>(*movObj)->muerto();
 }
 
 
@@ -218,6 +226,9 @@ Vector2D Game::collides(SDL_Rect dimball, const Vector2D& vel) {
 	Vector2D col(0, 0);
 	Block* bloque = mapa->collides(dimball, vel, col);
 	if (bloque != nullptr) {
+		if ((rand() % 100) < PROB_REWARD) {
+			crearReward(bloque->getPos());
+		}
 		mapa->destroyblock(bloque);
 	}
 	else{

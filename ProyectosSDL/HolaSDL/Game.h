@@ -28,6 +28,7 @@ const uint32_t FRAME_RATE = 5;
 const uint ballAA = 18;
 const uint largoP = 100;
 const int NUM_MUROS = 3;
+const int PROB_REWARD = 99;
 const int MAX_MAPAS = 3;
 
 
@@ -61,6 +62,7 @@ private:
 	void loadGame(string name);
 	void resetFirstReward();
 	void ultimoreward();
+	void resetBall();
 	void itMov(int num);
 	bool hayBolas();
 public:

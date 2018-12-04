@@ -35,15 +35,9 @@ SDL_Rect Ball::dimball() {
 
 void Ball::ballIni() {
 	pos = posini;
+	veldir = veldirini;
 }
 
 bool Ball::muerto() {
-	if (pos.getY() <= WIN_HEIGHT) {
-		return true;
-	}
-	else {
-		pos = posini;
-		veldir = veldirini;
-		return false;
-	}
+	return game->CollDead(getRect()) == 2;
 }

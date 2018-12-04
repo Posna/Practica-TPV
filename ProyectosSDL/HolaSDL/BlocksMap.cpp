@@ -89,10 +89,6 @@ BlockMap::~BlockMap() {
 
 }
 
-//bool BlockMap::enbloque(Vector2D pos, Vector2D posB, uint Wbloq, uint Hbloq) {
-//	return ((pos.getX() >= posB.getX()) && (pos.getX() <= (posB.getX() + Wbloq)) && (pos.getY() >= posB.getY()) && (pos.getY() <= (posB.getY() + Hbloq)));
-//}
-
 /*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
 En caso de no haber bloque en ese punto (incluido el caso de que p esté fuera
 del espacio del mapa) devuelve nullptr.
@@ -171,9 +167,6 @@ Block* BlockMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vec
 void BlockMap::destroyblock(Block* bloq) {
 	numbloques--;
 	//srand(time(NULL));
-	if ((rand() % 1) == 0) {
-		game->crearReward(bloq->getPos());
-	}
 	int f = bloq->getF();
 	int c = bloq->getC();
 	delete bloques[f][c];
