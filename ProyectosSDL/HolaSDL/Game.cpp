@@ -85,7 +85,7 @@ void Game::update() {
 void Game::run() {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
-	while (numvidas > 0 && !exit && numMapa != MAX_MAPAS+1) {
+	while (numvidas > 0 && !exit && numMapa < MAX_MAPAS+1) {
 		cout << "Numero de vidas:" << numvidas << endl;
 		//preguntar sobre la pelota y la muerte de la misma
 		while (!exit && !mapa->nobloques() && hayBolas() && reward) {
@@ -140,8 +140,8 @@ void Game::showmenu() {
 
 //carga el siguiente mapa que toque
 void Game::cargaNumMapa() {
-	char mapanum = numMapa + '0';
-	string a = MAPAS + mapanum + ".ark";
+	//char mapanum = numMapa + '0';
+	string a = MAPAS + to_string(numMapa) + ".ark";
 	ifstream fich(a);
 	mapa->vaciaMapa();
 	mapa->leeMapa(fich);
@@ -163,8 +163,10 @@ void Game::handleEvents() {
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT) exit = true;
 		static_cast<Paddle*>(objetos.front())->handleEvents(event);
-		if (event.key.keysym.sym == SDLK_s)
-			saveGame();
+		if (event.type == SDL_KEYUP) {
+			if(event.key.keysym.sym == SDLK_s)
+				saveGame();
+		}
 	}
 }
 
