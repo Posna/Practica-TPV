@@ -91,6 +91,7 @@
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MovingObject.h" />
     <ClInclude Include="Paddle.h" />
