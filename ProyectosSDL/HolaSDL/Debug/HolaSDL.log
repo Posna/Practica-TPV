@@ -1,3 +1,2 @@
-﻿  Game.cpp
-c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\game.cpp(268): warning C4244: 'argumento': conversión de 'double' a 'uint'; posible pérdida de datos
-  HolaSDL.vcxproj -> C:\Users\usuario\Desktop\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
+﻿  GameStateMachine.cpp
+  HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
