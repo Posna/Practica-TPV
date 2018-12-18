@@ -1,15 +1,26 @@
 #include "PlayState.h"
+#include "Paddle.h"		
 
 const std::string PlayState::s_playID = "PLAY";
 
-void PlayState::update() {
+PlayState::PlayState(Texture* t) {
+	objetos.push_back(new Paddle(Vector2D(0, 0), 50, 100, Vector2D(0, 0), t));
+}
 
+void PlayState::update() {
+	for (GameObject* o : objetos) {
+		o->update();
+	}
 }
 
 void PlayState::render() {
-
+	for (GameObject* o : objetos) {
+		o->render();
+	}
 }
 
 void PlayState::handleEvent() {
-
+	for (GameObject* o : objetos) {
+		o->handleEvents();
+	}
 }

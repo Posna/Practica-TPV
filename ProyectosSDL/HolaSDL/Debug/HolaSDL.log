@@ -1,2 +1,38 @@
-﻿  GameStateMachine.cpp
-  HolaSDL.vcxproj -> C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica\Practica-TPV\ProyectosSDL\bin\HolaSDLDebug.exe
+﻿  PlayState.cpp
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(11): error C2061: error de sintaxis: identificador 'GameState'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(12): error C2061: error de sintaxis: identificador 'GameState'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C2143: error de sintaxis: falta ';' delante de '*'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C2238: símbolos (token) inesperados delante de ';'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2065: 'GameState': identificador no declarado
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2059: error de sintaxis: '>'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2976: 'std::stack': no hay suficientes argumentos de plantilla
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\stack(18): note: vea la declaración de 'std::stack'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\menustate.h(4): error C2504: 'GameState': clase base sin definir
+  MenuState.cpp
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(11): error C2061: error de sintaxis: identificador 'GameState'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(12): error C2061: error de sintaxis: identificador 'GameState'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C2143: error de sintaxis: falta ';' delante de '*'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(14): error C2238: símbolos (token) inesperados delante de ';'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2065: 'GameState': identificador no declarado
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2059: error de sintaxis: '>'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\gamestatemachine.h(16): error C2976: 'std::stack': no hay suficientes argumentos de plantilla
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\stack(18): note: vea la declaración de 'std::stack'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\playstate.h(4): error C2504: 'GameState': clase base sin definir
+  GameStateMachine.cpp
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\menustate.h(4): error C2504: 'GameState': clase base sin definir
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\playstate.h(4): error C2504: 'GameState': clase base sin definir
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\game.h(55): error C2143: error de sintaxis: falta ';' delante de '*'
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\game.h(55): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+c:\users\usuario\desktop\practica-tpv\proyectossdl\holasdl\game.h(55): error C2238: símbolos (token) inesperados delante de ';'
+  Generando código...
+  Compilando...
+  Ball.cpp
+  Generando código...
+  Omitiendo... (no se detectaron cambios relevantes)
+  main.cpp
+  Reward.cpp
+  Paddle.cpp
+  Game.cpp
+  BlocksMap.cpp

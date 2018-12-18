@@ -7,6 +7,7 @@ private:
 
 
 public:
+	PlayState(Texture* t);
 	virtual void render();
 	virtual void update();
 	virtual void handleEvent();

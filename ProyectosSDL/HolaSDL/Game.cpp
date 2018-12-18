@@ -55,7 +55,7 @@ Game::Game() {
 	start = new Button(Vector2D((WIN_WIDTH / 2) - (w / 2), WIN_HEIGHT / 3), texturas[StartText], w, h, 0, 0);
 	load = new Button(Vector2D((WIN_WIDTH / 2) - (w / 2), WIN_HEIGHT * 2 / 3), texturas[LoadText], w, h, 0, 0);
 
-
+	maquinaEstados = new GameStateMachine();
 }
 //
 //
@@ -65,21 +65,24 @@ Game::Game() {
 
 void Game::render(){
 	SDL_RenderClear(renderer);
-	for (it = objetos.begin(); it != objetos.end(); ++it)
+	/*for (it = objetos.begin(); it != objetos.end(); ++it)
 	{
 		(*it)->render();
-	}
+	}*/
+	maquinaEstados->currentState()->render();
+
 	SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
-	for (it = objetos.begin(); it != objetos.end();)
+	/*for (it = objetos.begin(); it != objetos.end();)
 	{
 		auto next = it;
 		++next;
 		(*it)->update();
 		it = next;
-	}
+	}*/
+	maquinaEstados->currentState()->update();
 }
 
 void Game::run() {

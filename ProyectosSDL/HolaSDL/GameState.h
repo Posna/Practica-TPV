@@ -6,17 +6,17 @@
 #include <list>
 
 class GameState{
-private:
+protected:
 	list<GameObject*> objetos;
-	Game* game;
+	Game* game = nullptr;
 
 public:
+	GameState() {}
+	void update() {}
+	void render() {}
+	void handleEvent() {}
 
-	virtual void update();
-	virtual void render();
-	virtual void handleEvent();
-
-	virtual std::string getStateID() const = 0;
+	std::string getStateID() const {}
 
 };
 

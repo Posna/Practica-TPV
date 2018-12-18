@@ -19,6 +19,11 @@
 #include "FileFormatError.h"
 #include "FileNotFoundError.h"
 #include "MenuButton.h"
+#include <stack>
+
+#include "GameStateMachine.h"
+#include "MenuState.h"
+#include "PlayState.h"
 
 const enum TexturesName{BallText, PaddleText, BricksText, SideText, TopsideText, RewardText, LoadText, StartText};
 const enum WallName {WallLeft, WallUp, WallRight};
@@ -47,7 +52,9 @@ private:
 	int numMapa = 1;
 	int puntuacion = 0;
 
-	SDL_Window * window = nullptr;
+	GameStateMachine* maquinaEstados = nullptr;
+
+	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 
 	list<ArkanoidObject*> objetos;
