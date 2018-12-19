@@ -5,7 +5,8 @@
 const std::string PlayState::s_playID = "PLAY";
 
 PlayState::PlayState(Texture* t, Game* game): GameState(game) {
-	objetos.push_back(new Paddle(Vector2D(0, 0), 50, 100, Vector2D(0, 0), t));
+	objetos.push_back(new Paddle(Vector2D(100, 0), 50, 100, Vector2D(0, 0), t));
+	cout << "creado play";
 }
 
 //void PlayState::update() {

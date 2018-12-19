@@ -5,10 +5,8 @@
 
 class PauseState {
 
-private:
-
 public:
-	virtual void update();
-	virtual void render();
+	//virtual void update();
+	//virtual void render();
 };
 #endif

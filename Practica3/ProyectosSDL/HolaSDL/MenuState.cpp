@@ -1,10 +1,9 @@
 #include "MenuState.h"
 
-const std::string s_menuID = "MENU";
 
-void MenuState::playstate() {
-	this->game->playState();
-}
+//void MenuState::playstate() {
+//	this->game->playState();
+//}
 
 
 //MenuState::MenuState(Texture* t, Game* game) {

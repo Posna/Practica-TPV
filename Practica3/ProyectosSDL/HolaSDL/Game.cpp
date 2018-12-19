@@ -12,6 +12,7 @@ Game::Game() {
 
 	maquinaEstados = new GameStateMachine();
 	maquinaEstados->pushState(new MenuState(texturas[0], this));
+	callPlayState();
 }
 
 void Game::run() {
@@ -30,7 +31,9 @@ void Game::run() {
 }
 
 void Game::render() {
+	SDL_RenderClear(renderer);
 	maquinaEstados->currentState()->render();
+	SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
@@ -39,10 +42,15 @@ void Game::update() {
 }
 
 void Game::handleEvents() {
-	maquinaEstados->currentState()->handleEvents();
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !exit) {
+		if (event.type == SDL_QUIT) exit = true;
+		maquinaEstados->currentState()->handleEvents(/*event*/);
+	}
 
 }
 
 void Game::callPlayState() {
 	maquinaEstados->changeState(new PlayState(texturas[0], this));
 }
+

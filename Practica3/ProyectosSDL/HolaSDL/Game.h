@@ -51,6 +51,9 @@ public:
 	~Game();
 
 	void callPlayState();
+	void callPauseState();
+	void callEndState();
+
 
 
 	void run();

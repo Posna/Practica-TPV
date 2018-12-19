@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include <iostream>
 
 class PlayState: public GameState {
 private:
@@ -8,9 +9,9 @@ private:
 
 public:
 	PlayState(Texture* t, Game* game);
-	virtual void render();
+	/*virtual void render();
 	virtual void update();
-	virtual void handleEvents();
+	virtual void handleEvents();*/
 
 	virtual std::string getStateID() const { return s_playID; }
 

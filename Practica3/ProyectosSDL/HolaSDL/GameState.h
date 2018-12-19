@@ -19,12 +19,12 @@ protected:
 	Game* game = nullptr;
 public:
 	GameState(Game* game):game(game) {}
-	virtual ~GameState() {}
-	virtual void update();
-	virtual void render();
-	virtual void handleEvents();
+	//virtual ~GameState() {}
+	void update();
+	void render();
+	void handleEvents();
 
-	virtual string getStateID() const = 0;
+	virtual string getStateID() const  = 0;
 
 
 };
