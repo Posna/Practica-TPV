@@ -1,0 +1,15 @@
+﻿  EndState.cpp
+  Game.cpp
+  GameState.cpp
+  GameStateMachine.cpp
+  main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': redefinición de macro
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: vea la definición anterior de '_malloca'
+  MenuState.cpp
+  Paddle.cpp
+c:\users\posna\desktop\trabajosuni\trabajos\2º\tpv\practica3\proyectossdl\holasdl\paddle.cpp(32): warning C4244: '=': conversión de 'double' a 'uint'; posible pérdida de datos
+  PauseState.cpp
+  PlayState.cpp
+  Generando código...
+MenuState.obj : error LNK2001: símbolo externo "private: static class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const MenuState::s_menuID" (?s_menuID@MenuState@@0V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@B) sin resolver
+C:\Users\Posna\Desktop\TrabajosUni\Trabajos\2º\TPV\Practica3\ProyectosSDL\bin\HolaSDLDebug.exe : fatal error LNK1120: 1 externos sin resolver

@@ -4,8 +4,7 @@
 class PlayState: public GameState {
 private:
 	static const std::string s_playID;
-
-
+	
 public:
 	PlayState(Texture* t);
 	virtual void render();

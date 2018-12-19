@@ -11,10 +11,10 @@ protected:
 	Game* game = nullptr;
 
 public:
-	GameState() {}
-	void update() {}
-	void render() {}
-	void handleEvent() {}
+	virtual ~GameState() {}
+	virtual void update();
+	virtual void render();
+	virtual void handleEvent();
 
 	std::string getStateID() const {}
 
