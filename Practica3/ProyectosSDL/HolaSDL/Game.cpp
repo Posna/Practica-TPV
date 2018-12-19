@@ -12,7 +12,7 @@ Game::Game() {
 
 	maquinaEstados = new GameStateMachine();
 	maquinaEstados->pushState(new MenuState(texturas[0], this));
-	callPlayState();
+	//callPlayState();
 }
 
 void Game::run() {
@@ -44,8 +44,9 @@ void Game::update() {
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit) {
-		if (event.type == SDL_QUIT) exit = true;
-		maquinaEstados->currentState()->handleEvents(/*event*/);
+		if (event.type == SDL_QUIT) 
+			exit = true;
+		maquinaEstados->currentState()->handleEvents(event);
 	}
 
 }

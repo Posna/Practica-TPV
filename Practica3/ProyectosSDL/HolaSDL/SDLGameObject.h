@@ -25,6 +25,6 @@ public:
 	}
 	virtual void render();
 	virtual void update() {}
-	virtual void handleEvents() {}
+	virtual void handleEvents(SDL_Event& event) {}
 
 };

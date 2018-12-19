@@ -20,9 +20,9 @@ protected:
 public:
 	GameState(Game* game):game(game) {}
 	//virtual ~GameState() {}
-	void update();
-	void render();
-	void handleEvents();
+	virtual void update();
+	virtual void render();
+	virtual void handleEvents(SDL_Event& event);
 
 	virtual string getStateID() const  = 0;
 

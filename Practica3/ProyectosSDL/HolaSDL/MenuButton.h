@@ -19,11 +19,11 @@ private:
 	void(*m_callback) ();
 public:
 	//Initialize the variables
-	MenuButton(Vector2D pos, Texture* t, uint w, uint h, uint fX, uint fY) : SDLGameObject(pos, t, w, h, fX, fY) {}
+	MenuButton(Vector2D pos, Texture* t, uint w, uint h, uint fX, uint fY, void(*callback)()) : SDLGameObject(pos, t, w, h, fX, fY), m_callback(*callback) {}
 
 	void update();
 	//void render();
-	void handleEvents();
+	virtual void handleEvents(SDL_Event& event);
 
 	void clicked();
 };

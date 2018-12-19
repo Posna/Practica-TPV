@@ -5,7 +5,7 @@
 
 class MenuState: public GameState {
 public:
-	MenuState(Texture* t, Game* game) : GameState(game) { objetos.push_back(new MenuButton(Vector2D(0, 0), t, 100, 50, 0, 0));
+	MenuState(Texture* t, Game* game) : GameState(game) { objetos.push_back(new MenuButton(Vector2D(0, 0), t, 100, 50, 0, 0, play));
 	cout << "creado menu";
 	}
 	/*virtual void update();
@@ -18,6 +18,7 @@ private:
 	//MenuButton* playButton;
 
 	//void playstate();
+	static void play();
 
 	const string s_menuID = "MENU";
 };

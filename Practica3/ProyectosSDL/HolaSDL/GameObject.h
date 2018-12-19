@@ -11,7 +11,7 @@ class GameObject {
 public:
 	virtual void render() = 0;
 	virtual void update() = 0;
-	virtual void handleEvents() = 0;
+	virtual void handleEvents(SDL_Event& event) = 0;
 	virtual ~GameObject() {}
 };
 #endif

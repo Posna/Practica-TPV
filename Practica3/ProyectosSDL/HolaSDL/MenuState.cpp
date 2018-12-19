@@ -1,6 +1,10 @@
 #include "MenuState.h"
 
 
+void MenuState::play() {
+	cout << "le has dado al play" << endl;
+}
+
 //void MenuState::playstate() {
 //	this->game->playState();
 //}
